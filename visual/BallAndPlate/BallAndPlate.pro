@@ -20,9 +20,11 @@ QML_IMPORT_PATH =
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    scenemodifier.cpp
+    ball.cpp \
+    plate.cpp
 
 RESOURCES += qml.qrc
 
 HEADERS += \
-    scenemodifier.h
+    ball.h \
+    plate.h

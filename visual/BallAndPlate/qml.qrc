@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>glcode.js</file>
+        <file>trefoil.obj</file>
     </qresource>
 </RCC>
