@@ -25,13 +25,13 @@ Basınç bilgisi bu bağlantı şekilleriyle okunmuyor(0). Farklı bağlantı ş
 				-Ekran: 4G yazısı arkaya bakacak şekilde soldan sağa sırasıyla
 					BEYAZ
 					KIRMIZI
-					KAHVERENGİ
-					YEŞİL
+					YEŞİL ~~KAHVERENGİ~~
+					SİYAH(KAHVERENGİ) ~~YEŞİL~~
 				-Board:
 					BEYAZ 		-> A0	(analog)
 					KIRMIZI 	-> A1	(analog)
-					KAHVERENGİ 	-> 3	(digital)
-					YEŞİL 		-> 4	(digital)
+					YEŞİL 		-> 3	(digital) ~~KAHVERENGİ~~
+					SİYAH(KHV)	-> 4	(digital) ~~YEŞİL~~
 
 Notlar:
 -Ekran üzerinde bir şey yokken (0,1023) değeri alınıyor.
