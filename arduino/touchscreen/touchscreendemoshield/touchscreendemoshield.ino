@@ -30,6 +30,7 @@ void loop(void) {
   Serial.print("X = "); Serial.print(p.x);
   Serial.print("\tY = "); Serial.print(p.y);
   Serial.print("\tPressure = "); Serial.println(p.z);
+  //delay(800);
   
   /* basınç mevcut bağlantılarla 0 dönüyor.
    *  // we have some minimum pressure we consider 'valid'

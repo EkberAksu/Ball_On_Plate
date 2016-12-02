@@ -41,3 +41,6 @@ Notlar:
 	ORTALAMA MIN 120
 	ORTALAMA MAX 880(x için), 950(y için)
 olduğu görüldü.
+
+
+Program windows'ta çalıştırılıyorsa windows klasöründeki kütüphane dosyaları ino proje dosyasıyla aynı klasör altında bulunmalıdır.
