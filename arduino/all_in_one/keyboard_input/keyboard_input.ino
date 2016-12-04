@@ -1,98 +1,25 @@
-#include <Servo.h>
-#include "Keyboard.h"
-
-Servo servoLongEdge;  // This servo used to touchscreen's long edge top or down movement
-Servo servoShortEdge;  // This servo used to touchscreen's long edge top or down movement
-
-  int i = 0;
-
+int inByte; //Seri yoldan gelen veri
+int motorSpeed=125; //İlk durumda motorun çalışma hızı
 void setup() {
-  servoLongEdge.attach(10);  // attaches the servo on pin 9 to the servo object
-  servoShortEdge.attach(9); // attaches the servo on pin 10 to the servo object
-  Keyboard.begin();          // initialize control over the keyboard
+    Serial.begin(9600); // Seri iletişim ayarı - iletişimi aktifleştir ve hızını ayarla
+    analogWrite(9,motorSpeed);  //Motorumuzu çalıştır
 }
-
-void loop() {
-
- //fourCornerDemo();
- reset();
- enablePlateController();
+ 
+void loop() {  //Program boyunca çalışan döngü
+  if (Serial.available() > 0) { //Eğer seri bilgi gelmişse
+    inByte = Serial.read(); //O bilgiyi oku ve inByte değişkenine ata
+    Serial.write("Alinan karakter:"); //Bilgisayara seri olarak 'Alınan Karakter:' yazısı gönder
+    Serial.println(inByte, DEC);  //Bilgisayara seri olarak inByte değişkenindeki değeri onluk tabanda  gönder(bildiğiniz 10)
+    if(inByte==119) //'w' harfi int olarak 119'a karşılık geliyor, yani klavyeden 'w' değeri gönderilmişse
+    {
+       if(motorSpeed <= 245) //Motor hızı 10 arttırıldığında 25        5'i aşmayacak ise
+motorSpeed+=10;  //Motor hızını 10 arttır
+      analogWrite(9,motorSpeed);  //9.Pinde motor hızımız kadar PWM uygula
 }
-
-/*
- * Set two servos to specific angle
- * l: Long edge angle
- * s: Short edge angle
- */
-void setServoLongShort(int l, int s){
-  servoLongEdge.write(l);
-  servoShortEdge.write(s);
-}  
-
-/*
- * Reset plate
- */
-void reset(){
-  servoLongEdge.write(75);
-  servoShortEdge.write(75);
-}
-
-/*
- * generate servo response from keyboard input
- * one keystroke equals one degree of movement in servo
- */
-void enablePlateController(){
- char input = getInput();
- if(input=='w'){
-   if(servoLongEdge.read()>0){
-     servoLongEdge.write(servoLongEdge.read()-1);
-   }
- }else if(input=='s'){
-   if(servoLongEdge.read()<180){
-     servoLongEdge.write(servoLongEdge.read()+1);
-   }
- }else if(input=='a'){
-   if(servoShortEdge.read()<180){
-     servoShortEdge.write(servoShortEdge.read()+1);
-   }
- }else if(input=='d'){
-   if(servoShortEdge.read()>0){
-     servoShortEdge.write(servoShortEdge.read()-1);
-   }
- }
-}
-
-/*
- * take input from keyboard
- */
-char getInput(){
-  if (Serial.available() > 0) {
-    // read incoming serial data:
-    char inChar = Serial.read();
-    // Type the next ASCII value from what you received:
-    Keyboard.write(inChar);
-    return inChar;
+if(inByte==115)  //'s' harfi int olarak 115'e karşılık geliyor, yani klavyeden 's' değeri gönderilmişse
+ {         if(motorSpeed >= 10)  //Motor hızı 10 azaltığında 0'dan düşük bir duruma gelmeyecek ise
+         motorSpeed-=10;  //Motor hızını 10 azalt
+       analogWrite(9,motorSpeed);    //9.Pinde motor hızımız kadar PWM uygula
+    }
   }
-}
-
-/*
- * demo: four corners
- */
-void fourCornerDemo(){
-  servoLongEdge.write(0);
-  servoShortEdge.write(0);
-  delay(1000);
-  
-
-  servoLongEdge.write(0);
-  servoShortEdge.write(160);
-  delay(1000);
-
-  servoLongEdge.write(160);
-  servoShortEdge.write(0);
-  delay(1000);
-
-  servoLongEdge.write(160);
-  servoShortEdge.write(160);
-  delay(1000); 
 }
