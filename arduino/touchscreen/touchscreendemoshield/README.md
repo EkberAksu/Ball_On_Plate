@@ -1,6 +1,8 @@
 Sağlıklı değerler veren touchscreen projesi.
 Basınç bilgisi bu bağlantı şekilleriyle okunmuyor(0). Farklı bağlantı şekilleriyle de basınç okunurken x,y okunamadı.
 
+__Program windows'ta çalıştırılıyorsa windows klasöründeki kütüphane dosyaları ino proje dosyasıyla aynı klasör altında bulunmalıdır.__
+
 
 			Board görünümü:
 
@@ -33,14 +35,14 @@ Basınç bilgisi bu bağlantı şekilleriyle okunmuyor(0). Farklı bağlantı ş
 					YEŞİL 		-> 3	(digital) ~~KAHVERENGİ~~
 					SİYAH(KHV)	-> 4	(digital) ~~YEŞİL~~
 
-Notlar:
--Ekran üzerinde bir şey yokken (0,1023) değeri alınıyor.
--x ve y için <100, >1000 değerleri ihmal edilsin. Ara değerler üzerinden servo tepkisi üretilsin.
 
--Board üzerinde max,min x,y testleri yaparken her iki eksen için de
-	ORTALAMA MIN 120
-	ORTALAMA MAX 880(x için), 950(y için)
-olduğu görüldü.
+#####ESKİ EKRAN İÇİN
+~~Notlar:~~
+~~-Ekran üzerinde bir şey yokken (0,1023) değeri alınıyor.~~
+~~-x ve y için <100, >1000 değerleri ihmal edilsin. Ara değerler üzerinden servo tepkisi üretilsin.~~
 
+~~-Board üzerinde max,min x,y testleri yaparken her iki eksen için de~~
+	~~ORTALAMA MIN 120~~
+	~~ORTALAMA MAX 880(x için), 950(y için)~~
+~~olduğu görüldü.~~
 
-Program windows'ta çalıştırılıyorsa windows klasöründeki kütüphane dosyaları ino proje dosyasıyla aynı klasör altında bulunmalıdır.
