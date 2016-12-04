@@ -9,7 +9,7 @@
 
 int main()
 {
-   	int USB = open( "/dev/ttyACM0", O_RDWR| O_NOCTTY );
+   	int USB = open( "/dev/ttyACM0", O_RDWR| O_NOCTTY );		//SPECIFY PATH CORRECTLY
 
    	struct termios tty;
 	struct termios tty_old;
