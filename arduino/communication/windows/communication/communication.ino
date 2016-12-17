@@ -15,7 +15,8 @@ void setup() {
 }
  
 void loop() {
-  enablePlateController();
+  //enablePlateController();
+  Serial.write('a');
 }
 
 void enablePlateController(){
