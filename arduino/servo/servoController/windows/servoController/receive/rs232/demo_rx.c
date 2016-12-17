@@ -14,7 +14,7 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 #include <stdio.h>
 
 #ifdef _WIN32
-#include <Windows.h>
+#include "windows.h"
 #else
 #include <unistd.h>
 #endif
@@ -26,12 +26,12 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 int main()
 {
   int i, n,
-      cport_nr=0,        /* /dev/ttyS0 (COM1 on windows) */
-      bdrate=9600;       /* 9600 baud */
+      cport_nr=5,        // change port no: http://www.teuniz.net/RS-232/
+      bdrate=9600;       // 9600 baud
 
   unsigned char buf[4096];
 
-  char mode[]={'8','N','1',0};
+  char mode[]={'8','E','2',0};  // change mode http://www.teuniz.net/RS-232/
 
 
   if(RS232_OpenComport(cport_nr, bdrate, mode))

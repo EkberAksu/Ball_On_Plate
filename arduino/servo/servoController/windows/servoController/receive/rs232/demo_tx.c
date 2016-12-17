@@ -26,10 +26,10 @@ compile with the command: gcc demo_tx.c rs232.c -Wall -Wextra -o2 -o test_tx
 int main()
 {
   int i=0,
-      cport_nr=5,        /* /dev/ttyS0 (COM1 on windows) */
-      bdrate=9600;       /* 9600 baud */
+      cport_nr=5,        // change port no: http://www.teuniz.net/RS-232/
+      bdrate=9600;       // 9600 baud
 
-  char mode[]={'8','E','2',0},
+  char mode[]={'8','E','2',0},  // change mode http://www.teuniz.net/RS-232/
        str[2][512];
 
 
