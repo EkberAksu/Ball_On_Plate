@@ -1,0 +1,3 @@
+"C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -E remove -f CMakeFiles\Ball_Plate.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\Ball_Plate.dir/objects.a @CMakeFiles\Ball_Plate.dir\objects1.rsp
+C:\MinGW\bin\g++.exe   -std=gnu++11 -g   -Wl,--whole-archive CMakeFiles\Ball_Plate.dir/objects.a -Wl,--no-whole-archive  -o Ball_Plate.exe -Wl,--out-implib,libBall_Plate.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Ball_Plate.dir\linklibs.rsp
