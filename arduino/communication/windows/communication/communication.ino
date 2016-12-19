@@ -79,7 +79,7 @@ int rx(){
       msgRx[iRx] = inByte;
       return 1;
     }else{
-      msgRx[iRx] = inByte;    //concat msg
+      msgRx[iRx++] = inByte;    //concat msg
     }
   }
   return 0;
