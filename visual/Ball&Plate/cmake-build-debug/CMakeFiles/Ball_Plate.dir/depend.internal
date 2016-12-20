@@ -24,6 +24,8 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj
  C:/Program Files (x86)/OpenSceneGraph/include/osg/Callback
  C:/Program Files (x86)/OpenSceneGraph/include/osg/Camera
  C:/Program Files (x86)/OpenSceneGraph/include/osg/ClearNode
+ C:/Program Files (x86)/OpenSceneGraph/include/osg/ClipNode
+ C:/Program Files (x86)/OpenSceneGraph/include/osg/ClipPlane
  C:/Program Files (x86)/OpenSceneGraph/include/osg/CollectOccludersVisitor
  C:/Program Files (x86)/OpenSceneGraph/include/osg/ColorMask
  C:/Program Files (x86)/OpenSceneGraph/include/osg/Config
@@ -80,6 +82,7 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj
  C:/Program Files (x86)/OpenSceneGraph/include/osg/Quat
  C:/Program Files (x86)/OpenSceneGraph/include/osg/Referenced
  C:/Program Files (x86)/OpenSceneGraph/include/osg/RenderInfo
+ C:/Program Files (x86)/OpenSceneGraph/include/osg/Scissor
  C:/Program Files (x86)/OpenSceneGraph/include/osg/ScriptEngine
  C:/Program Files (x86)/OpenSceneGraph/include/osg/Shader
  C:/Program Files (x86)/OpenSceneGraph/include/osg/ShaderComposer
@@ -91,6 +94,7 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj
  C:/Program Files (x86)/OpenSceneGraph/include/osg/StateSet
  C:/Program Files (x86)/OpenSceneGraph/include/osg/Stats
  C:/Program Files (x86)/OpenSceneGraph/include/osg/Switch
+ C:/Program Files (x86)/OpenSceneGraph/include/osg/TexEnv
  C:/Program Files (x86)/OpenSceneGraph/include/osg/TexGen
  C:/Program Files (x86)/OpenSceneGraph/include/osg/TexGenNode
  C:/Program Files (x86)/OpenSceneGraph/include/osg/TexMat
@@ -178,6 +182,14 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj
  C:/Program Files (x86)/OpenSceneGraph/include/osgShadow/ShadowSettings
  C:/Program Files (x86)/OpenSceneGraph/include/osgShadow/ShadowTechnique
  C:/Program Files (x86)/OpenSceneGraph/include/osgShadow/ShadowedScene
+ C:/Program Files (x86)/OpenSceneGraph/include/osgText/Export
+ C:/Program Files (x86)/OpenSceneGraph/include/osgText/Font
+ C:/Program Files (x86)/OpenSceneGraph/include/osgText/Glyph
+ C:/Program Files (x86)/OpenSceneGraph/include/osgText/KerningType
+ C:/Program Files (x86)/OpenSceneGraph/include/osgText/String
+ C:/Program Files (x86)/OpenSceneGraph/include/osgText/Style
+ C:/Program Files (x86)/OpenSceneGraph/include/osgText/Text
+ C:/Program Files (x86)/OpenSceneGraph/include/osgText/TextBase
  C:/Program Files (x86)/OpenSceneGraph/include/osgUtil/CullVisitor
  C:/Program Files (x86)/OpenSceneGraph/include/osgUtil/Export
  C:/Program Files (x86)/OpenSceneGraph/include/osgUtil/GLObjectsVisitor
@@ -192,6 +204,7 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj
  C:/Program Files (x86)/OpenSceneGraph/include/osgUtil/SceneView
  C:/Program Files (x86)/OpenSceneGraph/include/osgUtil/StateGraph
  C:/Program Files (x86)/OpenSceneGraph/include/osgUtil/UpdateVisitor
+ C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/CompositeViewer
  C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/Export
  C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/GraphicsWindow
  C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/Keystone
@@ -199,4 +212,22 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj
  C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/View
  C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/Viewer
  C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/ViewerBase
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Box
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Canvas
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/EventInterface
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Export
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Frame
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Input
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Label
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/ScriptEngine
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/StyleInterface
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/StyleManager
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Table
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Types
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/UIObjectParent
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Util
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/ViewerEventHandlers
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Widget
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Window
+ C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/WindowManager
  C:/Users/Akbar Aziz/ClionProjects/Ball&Plate/main.cpp

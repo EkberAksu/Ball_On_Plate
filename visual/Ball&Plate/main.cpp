@@ -17,6 +17,18 @@
 #include <osg/MatrixTransform>
 #include <osg/PositionAttitudeTransform>
 #include <string>
+#include <osgWidget/Util>
+#include <osgWidget/WindowManager>
+#include <osgWidget/Table>
+#include <osgDB/ReadFile>
+#include <osgViewer/Viewer>
+#include <osgWidget/WindowManager>
+#include <osgWidget/Box>
+#include <osgWidget/Canvas>
+#include <osgWidget/Label>
+#include <osgWidget/ViewerEventHandlers>
+#include <iostream>
+#include <sstream>
 
 
 using namespace osg;
@@ -30,20 +42,117 @@ float jointAngle1;
 float jointAngle2;
 float EndEffector;
 
-osg::MatrixTransform *joint1;
-osg::MatrixTransform *joint2;
-osg::MatrixTransform *joint3;
+osg::MatrixTransform *joint1;  //silindir
+osg::MatrixTransform *joint2; //tahta
+osg::MatrixTransform *joint3; //alt tahta
 
 osg::MatrixTransform *buildJoint1(osg::MatrixTransform *previousJoint);
-
 osg::MatrixTransform *buildJoint2(osg::MatrixTransform *previousJoint);
 osg::MatrixTransform *buildJoint3(osg::MatrixTransform *previousJoint);
-
 osg::MatrixTransform *buildEndEffector();
 
 osg::TessellationHints *hints = new osg::TessellationHints;
 
+extern bool tabPressed( osgWidget::Event& ev );
 
+osgWidget::Label* createLabel( const std::string& name,
+                               const std::string& text, float size,
+                               const osg::Vec4& color )
+{
+    osg::ref_ptr<osgWidget::Label> label =
+            new osgWidget::Label(name);
+    label->setLabel( text );
+    label->setFont( "fonts/arial.ttf" );
+    label->setFontSize( size );
+    label->setFontColor( 1.0f, 1.0f, 1.0f, 1.0f );
+    label->setColor( color );
+    label->addSize( 10.0f, 10.0f );
+    label->setCanFill( true );
+    return label.release();
+}
+
+osgWidget::Window* createSimpleTabs( float winX, float winY )
+{
+    osg::ref_ptr<osgWidget::Canvas> contents =
+            new osgWidget::Canvas("contents");
+    osg::ref_ptr<osgWidget::Box> tabs =
+            new osgWidget::Box("tabs", osgWidget::Box::HORIZONTAL);
+
+    for ( unsigned int i=0; i<3; ++i )
+    {
+        osg::Vec4 color(0.0f, (float)i / 3.0f, 0.0f, 1.0f);
+        std::stringstream ss, ss2;
+        ss << "Button-" << i;
+        ss2 << "Detected action:" << std::endl <<"Button "<< i << " is pressed" ;
+        osgWidget::Label* content = createLabel(ss.str(),
+                                                ss2.str(), 10.0f, color);
+        content->setLayer( osgWidget::Widget::LAYER_MIDDLE, i );
+        contents->addWidget( content, 0.0f, 0.0f );
+        osgWidget::Label* tab = createLabel(ss.str(),
+                                            ss.str(), 10.0f, color);
+        tab->setEventMask( osgWidget::EVENT_MOUSE_PUSH );
+        tab->addCallback( new osgWidget::Callback(
+                &tabPressed, osgWidget::EVENT_MOUSE_PUSH, content) );
+        tabs->addWidget( tab );
+    }
+    osg::ref_ptr<osgWidget::Box> main =
+            new osgWidget::Box("main", osgWidget::Box::VERTICAL);
+    main->setOrigin( winX, winY );
+    main->attachMoveCallback();
+    main->addWidget( contents->embed() );
+    main->addWidget( tabs->embed() );
+    main->addWidget( createLabel("title", "Hi Guys, attention here!!!",
+                                 15.0f, osg::Vec4(0.0f, 0.4f, 1.0f, 1.0f)) );
+
+    return main.release();
+}
+
+bool tabPressed( osgWidget::Event& ev )
+{
+    osgWidget::Label* content = static_cast<
+            osgWidget::Label*>( ev.getData() );
+    if ( !content ) return false;
+    osgWidget::Canvas* canvas = dynamic_cast<
+            osgWidget::Canvas*>( content->getParent() );
+    if ( canvas )
+    {
+        osgWidget::Canvas::Vector& objs = canvas->getObjects();
+        for( unsigned int i=0; i<objs.size(); ++i )
+            objs[i]->setLayer( osgWidget::Widget::LAYER_MIDDLE, i );
+        content->setLayer( osgWidget::Widget::LAYER_TOP, 0 );
+        canvas->resize();
+    }
+    return true;
+}
+
+osg::ref_ptr<osgText::Font> g_font =
+        osgText::readFontFile("fonts/arial.ttf");
+
+osg::Camera* createHUDCamera( double left, double right,
+                              double bottom, double top )
+{
+    osg::ref_ptr<osg::Camera> camera = new osg::Camera;
+    camera->setReferenceFrame( osg::Transform::ABSOLUTE_RF );
+    camera->setClearMask( GL_DEPTH_BUFFER_BIT );
+    camera->setRenderOrder( osg::Camera::POST_RENDER );
+    camera->setAllowEventFocus( false );
+    camera->setProjectionMatrix(
+            osg::Matrix::ortho2D(left, right, bottom, top) );
+    return camera.release();
+}
+osgText::Text* createText( const osg::Vec3& pos,
+                           const std::string& content,
+                           float size )
+{
+    osg::ref_ptr<osgText::Text> text = new osgText::Text;
+    text->setFont( g_font.get() );
+    text->setCharacterSize( size );
+    text->setAxisAlignment( osgText::TextBase::XY_PLANE );
+    text->setPosition( pos );
+    text->setText( content );
+    text->setColor(osg::Vec4(0.5f, 0.9f, 0.1f, 1.0f));
+    return text.release();
+}
 
 class KeyboardEventHandler : public osgGA::GUIEventHandler {
 public:
@@ -130,6 +239,12 @@ public:
     }
 };
 
+void makeMove(float x, float y, osg::MatrixTransform *joint){
+    KeyboardEventHandler::rotateX(-x*osg::PI/180, joint1);
+    KeyboardEventHandler::rotateY(-y*osg::PI/180, joint1);
+    KeyboardEventHandler::translate(x, 0.0, y,joint2);
+}
+
 
 osg::Group *createShapes() {
     osg::ref_ptr<osg::LightSource> source = new osg::LightSource;
@@ -197,7 +312,8 @@ void addTexture(osg::ShapeDrawable* shape, string file){
 
 osg::MatrixTransform *buildJoint3(osg::MatrixTransform *previousJoint)  //The Cylinder at the button
 {
-    double length = 20.0;
+    double length = 18.75;
+    double width = 25;
 
     osg::MatrixTransform *xTransform = new osg::MatrixTransform();
     previousJoint->addChild(xTransform);
@@ -205,7 +321,7 @@ osg::MatrixTransform *buildJoint3(osg::MatrixTransform *previousJoint)  //The Cy
     xTransform->setMatrix(xRot);
     osg::Geode *joint = new osg::Geode();//
     osg::ShapeDrawable* plate;
-    plate = new osg::ShapeDrawable(new osg::Box(osg::Vec3(0.0f, -10.0f, 0.0f), length, 1.0f, length), hints);
+    plate = new osg::ShapeDrawable(new osg::Box(osg::Vec3(0.0f, -10.0f, 0.0f), width, 1.0f, length), hints);
     joint->addDrawable(plate);
     xTransform->addChild(joint);
 
@@ -245,6 +361,7 @@ osg::MatrixTransform *buildJoint1(osg::MatrixTransform *previousJoint)  //The Cy
 osg::MatrixTransform *buildJoint2(osg::MatrixTransform *previousJoint) {
 
     double length = 15.0;
+    double width = 20.0;
 
     osg::MatrixTransform *xTransform = new osg::MatrixTransform();
     previousJoint->addChild(xTransform);
@@ -252,7 +369,7 @@ osg::MatrixTransform *buildJoint2(osg::MatrixTransform *previousJoint) {
     xTransform->setMatrix(xRot);
     osg::Geode *joint = new osg::Geode();//
     osg::ShapeDrawable* plate;
-    plate= new osg::ShapeDrawable(new osg::Box(osg::Vec3(0.0f, -10.0f, 0.0f), length, 0.6, length), hints);
+    plate= new osg::ShapeDrawable(new osg::Box(osg::Vec3(0.0f, -10.0f, 0.0f), width, 0.6, length), hints);
     joint->addDrawable(plate);
     xTransform->addChild(joint);
 
@@ -308,7 +425,6 @@ void setCameraPosision(osgViewer::Viewer & viewer){
 int main(int, char **) {
     hints->setDetailRatio(0.5f);
 
-
     jointAngle1 = 0;
     jointAngle2 = 0.0;
     EndEffector = 1.0;
@@ -317,22 +433,52 @@ int main(int, char **) {
     viewer.addEventHandler(new KeyboardEventHandler());
     viewer.createDistortionTexture(20,20);
     // add model to viewer.
-    viewer.setSceneData(createShapes());
-
-    /* viewer.setCameraManipulator(new osgGA::TrackballManipulator());
-     viewer.getCameraManipulator()->getHomePosition(eye,center,up);
-     viewer.getCameraManipulator()->setHomePosition(-Vec3d(eye.x(),eye.y()-70,eye.z()-60),
-                                                    Vec3d(center.x(),center.y(),center.z()),
-                                                    -Vec3d(up.x(),up.y(),up.z()));
-     Vec3d eye( 1000.0, 1000.0, 0.0 );
-     Vec3d center( 0.0, 0.0, 0.0 );
-     Vec3d up( 0.0, 0.0, 1.0 );
-
-     viewer.getCamera()->setViewMatrixAsLookAt( eye, center, up );*/
+    //viewer.setSceneData(createShapes());
 
     setCameraPosision(viewer);
 
-    viewer.setUpViewInWindow(25, 25, 1280, 680);
+    viewer.setUpViewInWindow(10, 35, 1350, 680);
+//--------------------------------------------------------------------------------------------
+    osg::ref_ptr<osg::Geode> textGeode = new osg::Geode;
+    textGeode->addDrawable(createText(
+            osg::Vec3(450.0f, 650.0f, 0.0f),
+            "Project: Ball&Plate",
+            30.0f)
+    );
+    textGeode->addDrawable(createText(
+            osg::Vec3(600.0f, 600.0f, 0.0f),
+            "- by Group 1",
+            15.0f)
+    );
+
+//----------------------------------------------------------------------------------------------
+
+    osg::ref_ptr<osgWidget::WindowManager> wm =
+            new osgWidget::WindowManager(&viewer, 1350.0f,
+                                         680.0f, 0xf0000000);
+    osg::Camera* camera = wm->createParentOrthoCamera();
+    wm->addChild( createSimpleTabs(800.0f, 400.0f) );
+    wm->resizeAllWindows();
+    viewer.addEventHandler(
+            new osgWidget::MouseHandler(wm.get()) );
+    viewer.addEventHandler(
+            new osgWidget::KeyboardHandler(wm.get()) );
+    viewer.addEventHandler( new osgWidget::ResizeHandler(wm.get(),
+                                                         camera) );
+    viewer.addEventHandler(
+            new osgWidget::CameraSwitchHandler(wm.get(), camera) );
+
+    //osg::Camera *camera = createHUDCamera(0, 1024, 0, 768);
+    camera->addChild(textGeode.get());
+    //camera->addChild( buttonGeode.get() );
+    camera->getOrCreateStateSet()->setMode(
+            GL_LIGHTING, osg::StateAttribute::OFF);
+    osg::ref_ptr<osg::Group> root = createShapes();
+    root->addChild( camera );
+    viewer.setSceneData( root.get() );
+    viewer.realize();
+
+    makeMove(5,-7,joint1);
 
     return viewer.run();
 }
