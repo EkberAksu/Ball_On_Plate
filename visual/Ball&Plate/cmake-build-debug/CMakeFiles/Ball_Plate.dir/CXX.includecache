@@ -258,6 +258,20 @@ osg/Group
 osg/Vec4
 -
 
+C:/Program Files (x86)/OpenSceneGraph/include/osg/ClipNode
+osg/Group
+-
+osg/ClipPlane
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osg/ClipPlane
+osg/Vec4d
+-
+osg/Plane
+-
+osg/StateAttribute
+-
+
 C:/Program Files (x86)/OpenSceneGraph/include/osg/CollectOccludersVisitor
 osg/NodeVisitor
 -
@@ -768,6 +782,10 @@ osg/State
 osg/View
 -
 
+C:/Program Files (x86)/OpenSceneGraph/include/osg/Scissor
+osg/StateAttribute
+-
+
 C:/Program Files (x86)/OpenSceneGraph/include/osg/ScriptEngine
 osg/Object
 -
@@ -928,6 +946,14 @@ ostream
 
 C:/Program Files (x86)/OpenSceneGraph/include/osg/Switch
 osg/Group
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osg/TexEnv
+osg/GL
+-
+osg/StateAttribute
+-
+osg/Vec4
 -
 
 C:/Program Files (x86)/OpenSceneGraph/include/osg/TexGen
@@ -1738,6 +1764,94 @@ osgShadow/ShadowTechnique
 osgShadow/ShadowSettings
 -
 
+C:/Program Files (x86)/OpenSceneGraph/include/osgText/Export
+osg/Config
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgText/Font
+string
+-
+istream
+-
+osg/TexEnv
+-
+osgText/Glyph
+-
+osgDB/Options
+-
+OpenThreads/Mutex
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgText/Glyph
+string
+-
+istream
+-
+osg/Vec2
+-
+osg/Image
+-
+osg/Texture2D
+-
+osg/StateSet
+-
+osg/Geometry
+-
+osg/Geode
+-
+osgText/Export
+-
+osgText/KerningType
+-
+osgText/Style
+-
+OpenThreads/Mutex
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgText/KerningType
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgText/String
+vector
+-
+set
+-
+string
+-
+osgText/Export
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgText/Style
+osg/Object
+-
+osg/Vec2
+-
+osgText/Export
+-
+iosfwd
+-
+vector
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgText/Text
+osg/Drawable
+-
+osg/Quat
+-
+osgText/TextBase
+-
+osgText/Font
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgText/TextBase
+osg/Drawable
+-
+osgText/String
+-
+osgText/KerningType
+-
+osgText/Font
+-
+
 C:/Program Files (x86)/OpenSceneGraph/include/osgUtil/CullVisitor
 map
 -
@@ -1926,6 +2040,16 @@ osg/ScriptEngine
 osgUtil/Export
 -
 
+C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/CompositeViewer
+osg/ArgumentParser
+-
+osgUtil/UpdateVisitor
+-
+osgViewer/GraphicsWindow
+-
+osgViewer/View
+-
+
 C:/Program Files (x86)/OpenSceneGraph/include/osgViewer/Export
 osg/Config
 -
@@ -2022,6 +2146,160 @@ osgViewer/Scene
 osgViewer/GraphicsWindow
 -
 
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Box
+osgWidget/Window
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Canvas
+osgWidget/Window
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/EventInterface
+list
+-
+osg/ref_ptr
+-
+osg/observer_ptr
+-
+osg/Referenced
+-
+osgWidget/Export
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Export
+osg/Config
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Frame
+osgWidget/Table
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Input
+osgWidget/Label
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Label
+osgText/Text
+-
+osgWidget/Widget
+-
+osgWidget/Window
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/ScriptEngine
+osg/Referenced
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/StyleInterface
+osgWidget/Export
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/StyleManager
+map
+-
+osgDB/Input
+-
+osgWidget/Box
+-
+osgWidget/Frame
+-
+osgWidget/Input
+-
+osgWidget/Canvas
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Table
+osgWidget/Window
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Types
+numeric
+-
+osg/Geometry
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/UIObjectParent
+osg/Object
+-
+osg/observer_ptr
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Util
+ctype.h
+-
+cctype
+-
+algorithm
+-
+sstream
+-
+osg/Camera
+-
+osgViewer/Viewer
+-
+osgViewer/CompositeViewer
+-
+osgWidget/Export
+-
+osgWidget/Types
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/ViewerEventHandlers
+osgGA/GUIEventAdapter
+-
+osgGA/GUIEventHandler
+-
+osgWidget/WindowManager
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Widget
+osg/Texture2D
+-
+osgWidget/EventInterface
+-
+osgWidget/StyleInterface
+-
+osgWidget/UIObjectParent
+-
+osgWidget/Types
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/Window
+osg/Scissor
+-
+osg/MatrixTransform
+-
+osg/Geode
+-
+osg/ClipNode
+-
+osgWidget/Types
+-
+osgWidget/Util
+-
+osgWidget/Widget
+-
+
+C:/Program Files (x86)/OpenSceneGraph/include/osgWidget/WindowManager
+osg/Switch
+-
+osg/Uniform
+-
+osg/Drawable
+-
+osgGA/GUIEventAdapter
+-
+osgUtil/LineSegmentIntersector
+-
+osgViewer/View
+-
+osgWidget/ScriptEngine
+-
+osgWidget/StyleManager
+-
+osgWidget/Window
+-
+
 C:/Users/Akbar Aziz/ClionProjects/Ball&Plate/main.cpp
 osg/Geode
 -
@@ -2058,5 +2336,29 @@ osg/MatrixTransform
 osg/PositionAttitudeTransform
 -
 string
+-
+osgWidget/Util
+-
+osgWidget/WindowManager
+-
+osgWidget/Table
+-
+osgDB/ReadFile
+-
+osgViewer/Viewer
+-
+osgWidget/WindowManager
+-
+osgWidget/Box
+-
+osgWidget/Canvas
+-
+osgWidget/Label
+-
+osgWidget/ViewerEventHandlers
+-
+iostream
+-
+sstream
 -
 

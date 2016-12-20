@@ -23,6 +23,8 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Callback
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Camera
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/ClearNode
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/ClipNode
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/ClipPlane
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/CollectOccludersVisitor
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/ColorMask
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Config
@@ -79,6 +81,7 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Quat
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Referenced
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/RenderInfo
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Scissor
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/ScriptEngine
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Shader
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/ShaderComposer
@@ -90,6 +93,7 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/StateSet
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Stats
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/Switch
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/TexEnv
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/TexGen
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/TexGenNode
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osg/TexMat
@@ -177,6 +181,14 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgShadow/ShadowSettings
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgShadow/ShadowTechnique
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgShadow/ShadowedScene
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgText/Export
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgText/Font
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgText/Glyph
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgText/KerningType
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgText/String
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgText/Style
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgText/Text
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgText/TextBase
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgUtil/CullVisitor
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgUtil/Export
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgUtil/GLObjectsVisitor
@@ -191,6 +203,7 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgUtil/SceneView
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgUtil/StateGraph
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgUtil/UpdateVisitor
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgViewer/CompositeViewer
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgViewer/Export
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgViewer/GraphicsWindow
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgViewer/Keystone
@@ -198,5 +211,23 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgViewer/View
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgViewer/Viewer
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgViewer/ViewerBase
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Box
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Canvas
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/EventInterface
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Export
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Frame
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Input
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Label
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/ScriptEngine
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/StyleInterface
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/StyleManager
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Table
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Types
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/UIObjectParent
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Util
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/ViewerEventHandlers
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Widget
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Window
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/WindowManager
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: ../main.cpp
 
