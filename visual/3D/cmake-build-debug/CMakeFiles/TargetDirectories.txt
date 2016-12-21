@@ -1,0 +1,3 @@
+E:/Programlama/Proje1/395_Project1/visual/3D/cmake-build-debug/CMakeFiles/3D.dir
+E:/Programlama/Proje1/395_Project1/visual/3D/cmake-build-debug/CMakeFiles/edit_cache.dir
+E:/Programlama/Proje1/395_Project1/visual/3D/cmake-build-debug/CMakeFiles/rebuild_cache.dir
