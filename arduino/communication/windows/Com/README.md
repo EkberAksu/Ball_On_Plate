@@ -1,0 +1,1 @@
+Windows üzerinde çalışan rs232 kodu.

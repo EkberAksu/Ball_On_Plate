@@ -1,15 +1,18 @@
 #include <Servo.h>
+
+#define MSG_LEN 20
+
 Servo servoShortEdge;
 Servo servoLongEdge;
 
 int inByte; //input byte
 int degree=0;
 int x,y,servo1,servo2;
-char msgTx[15];  // #format: <x y servo1Degree servo2Degree> (int,int,int,int)
+char msgTx[MSG_LEN];  // #format: <x y servo1Degree servo2Degree> (int,int,int,int)
 char moveRx,isGameRx;
-char msgRx[15];  // #format: <move isGame> (char,char)
-                 // move control input, no input is represented by 0
-                 // isGame option activates game option
+char msgRx[MSG_LEN];  // #format: <setPointX setPointY> (int,int)
+                      // move control input, no input is represented by 0
+                      // isGame option activates game option
 int iRx=0;
 
 
@@ -28,11 +31,12 @@ void loop() {
 }
 
 void communicate(){
-  if(rx() == 1){  //msg received
+  /*if(rx() == 1){  //msg received
     sscanf(msgRx, "%c %c",moveRx,isGameRx);  //get values
-    performRxCommand();
+    Serial.println(msgRx);
+    //performRxCommand();
     clearRx();
-  }
+  }*/
   tx();
 }
 
@@ -52,13 +56,13 @@ void performRxCommand(){
        servoLongEdge.write(servoLongEdge.read()+10);
       }
     }
-    else if(moveRx==97)  //'a' harfi int olarak 115'e karşılık geliyor, yani klavyeden 's' değeri gönderilmişse
+    else if(moveRx==97)  //'a' harfi int olarak 97'e karşılık geliyor, yani klavyeden 's' değeri gönderilmişse
     {    
       if(servoShortEdge.read()<170){
        servoShortEdge.write(servoShortEdge.read()+10);
       } 
     }
-    else if(moveRx==100)  //'d' harfi int olarak 115'e karşılık geliyor, yani klavyeden 's' değeri gönderilmişse
+    else if(moveRx==100)  //'d' harfi int olarak 100'e karşılık geliyor, yani klavyeden 's' değeri gönderilmişse
     { 
       if(servoShortEdge.read()>10){
        servoShortEdge.write(servoShortEdge.read()-10);
@@ -81,6 +85,10 @@ int rx(){
     }else{
       msgRx[iRx++] = inByte;    //concat msg
     }
+    if(iRx == MSG_LEN-1){
+      msgRx[iRx] = '\0';
+      return 1;
+    }
   }
   return 0;
 }
@@ -91,16 +99,19 @@ void tx(){
   for(int i=0; i<msgTxLength(); ++i){
     Serial.write(msgTx[i]);
   }
+  Serial.write('\0');
+  delay(1000);
   clearTx();
 }
 
 //TODO: NEED VARIABLES ASSIGNMENTS
 void setStatus(){
-  x = 0;                             //THESE SHOULD BE CORRECTLY SETTED
-  y = 0;
-  servo1 = servoShortEdge.read();    //THESE TWO LINES MAY BE EXCHANGED
-  servo2 = servoLongEdge.read();
-  sprintf(msgTx, "%d %d %d %d", x,y,servo1,servo2);
+  x = 1;                             //THESE SHOULD BE CORRECTLY SETTED
+  y = 1;
+  servo1 = 1; //servoShortEdge.read();    //THESE TWO LINES MAY BE EXCHANGED
+  servo2 = 1; //servoLongEdge.read();
+  //sprintf(msgTx, "%d %d %d %d", x,y,servo1,servo2);
+  sprintf(msgTx, "A");
 }
 
 int msgTxLength(){

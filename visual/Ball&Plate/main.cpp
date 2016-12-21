@@ -29,6 +29,7 @@
 #include <osgWidget/ViewerEventHandlers>
 #include <iostream>
 #include <sstream>
+#include <windows.h>
 
 
 using namespace osg;
@@ -37,19 +38,30 @@ using namespace std;
 
 unsigned int rcvShadowMask = 0x1;
 unsigned int castShadowMask = 0x2;
+osg::Matrix initPosPlate;
+osg::Matrix initPosBall;
 
 float jointAngle1;
 float jointAngle2;
 float EndEffector;
 
+osg::MatrixTransform *joint0; //alt tahta
 osg::MatrixTransform *joint1;  //silindir
 osg::MatrixTransform *joint2; //tahta
-osg::MatrixTransform *joint3; //alt tahta
+osg::MatrixTransform *joint3;
+osg::MatrixTransform *joint4;
+osg::MatrixTransform *joint5;
+osg::MatrixTransform *joint6;
 
+osg::MatrixTransform *buildjoint0(osg::MatrixTransform *previousJoint);
 osg::MatrixTransform *buildJoint1(osg::MatrixTransform *previousJoint);
 osg::MatrixTransform *buildJoint2(osg::MatrixTransform *previousJoint);
-osg::MatrixTransform *buildJoint3(osg::MatrixTransform *previousJoint);
+osg::MatrixTransform *buildJoint3();
+osg::MatrixTransform *buildJoint4(osg::MatrixTransform *previousJoint);
+osg::MatrixTransform *buildJoint5(osg::MatrixTransform *previousJoint);
 osg::MatrixTransform *buildEndEffector();
+
+void makeMove(float x, float y);
 
 osg::TessellationHints *hints = new osg::TessellationHints;
 
@@ -67,7 +79,7 @@ osgWidget::Label* createLabel( const std::string& name,
     label->setFontColor( 1.0f, 1.0f, 1.0f, 1.0f );
     label->setColor( color );
     label->addSize( 10.0f, 10.0f );
-    label->setCanFill( true );
+    //label->setCanFill( true );
     return label.release();
 }
 
@@ -77,16 +89,18 @@ osgWidget::Window* createSimpleTabs( float winX, float winY )
             new osgWidget::Canvas("contents");
     osg::ref_ptr<osgWidget::Box> tabs =
             new osgWidget::Box("tabs", osgWidget::Box::HORIZONTAL);
+    //tabs->setScale(0.8f);
 
     for ( unsigned int i=0; i<3; ++i )
     {
         osg::Vec4 color(0.0f, (float)i / 3.0f, 0.0f, 1.0f);
         std::stringstream ss, ss2;
-        ss << "Button-" << i;
-        ss2 << "Detected action:" << std::endl <<"Button "<< i << " is pressed" ;
+        ss << "Button" << i;
+        ss2 << "Detected action:" <<" Button "<< i << " is pressed" ;
         osgWidget::Label* content = createLabel(ss.str(),
-                                                ss2.str(), 10.0f, color);
+                                                ss2.str(), 13.0f, color);
         content->setLayer( osgWidget::Widget::LAYER_MIDDLE, i );
+        content->setSize(480.0f,30.0f);
         contents->addWidget( content, 0.0f, 0.0f );
         osgWidget::Label* tab = createLabel(ss.str(),
                                             ss.str(), 10.0f, color);
@@ -101,9 +115,9 @@ osgWidget::Window* createSimpleTabs( float winX, float winY )
     main->attachMoveCallback();
     main->addWidget( contents->embed() );
     main->addWidget( tabs->embed() );
-    main->addWidget( createLabel("title", "Hi Guys, attention here!!!",
+    main->addWidget( createLabel("title", "This is only an example",
                                  15.0f, osg::Vec4(0.0f, 0.4f, 1.0f, 1.0f)) );
-
+    main->setScale(0.8);
     return main.release();
 }
 
@@ -163,13 +177,15 @@ public:
     static void rotateY(float angle, osg::MatrixTransform *joint) {
         osg::Matrix yRot;
         yRot.makeRotate(angle, 0.0, 1.0, 0.0);
-        joint->setMatrix(joint->getMatrix()*yRot );
+        //joint->setMatrix(joint->getMatrix()*yRot );
+        joint->setMatrix(initPosPlate*yRot );
     }
 
     static void rotateX(float angle, osg::MatrixTransform *joint) {
         osg::Matrix xRot;
         xRot.makeRotate(angle, 1.0, 0.0, 0.0);
-        joint->setMatrix(joint->getMatrix()*xRot);
+        //joint->setMatrix(joint->getMatrix()*xRot);
+        joint->setMatrix(initPosPlate*xRot );
     }
 
     static void rotateXY(float angleX,float angleY, osg::MatrixTransform *joint) {
@@ -189,12 +205,19 @@ public:
     static void translate(float x, float y, float z, osg::MatrixTransform *joint) {
         osg::Matrix trans;
         trans.makeTranslate(x, y, z);
-        joint->setMatrix(trans * joint->getMatrix());
+        //joint->setMatrix(trans * joint->getMatrix());
+        joint->setMatrix(initPosBall*trans );
     }
 
     virtual bool handle(const osgGA::GUIEventAdapter &ea, osgGA::GUIActionAdapter &) {
         switch (ea.getEventType()) {
-            case (osgGA::GUIEventAdapter::KEYDOWN): {
+            case (osgGA::GUIEventAdapter::FRAME): {
+                makeMove(5,7);
+                Sleep(100);
+                makeMove(-5,7);
+                Sleep(100);
+                makeMove(-5,-7);
+                /*
                 switch (ea.getKey()) {
                     case 'd':
                         rotateY(-osg::PI/180, joint1);
@@ -228,7 +251,7 @@ public:
                         rotateXY(-osg::PI/180,-osg::PI/180, joint1);
                         translate(-0.25, 0.0, 0.25,joint2);
                         return true;
-                }
+                }*/
             }
             default:
                 break;
@@ -239,51 +262,10 @@ public:
     }
 };
 
-void makeMove(float x, float y, osg::MatrixTransform *joint){
+void makeMove(float x, float y){
     KeyboardEventHandler::rotateX(-x*osg::PI/180, joint1);
     KeyboardEventHandler::rotateY(-y*osg::PI/180, joint1);
     KeyboardEventHandler::translate(x, 0.0, y,joint2);
-}
-
-
-osg::Group *createShapes() {
-    osg::ref_ptr<osg::LightSource> source = new osg::LightSource;
-    source->getLight()->setPosition( osg::Vec4(-5.0, 10.0, 5.0,
-                                               0.0) );
-    source->getLight()->setAmbient( osg::Vec4(0.2, 0.2, 0.2, 1.0)
-    );
-    source->getLight()->setDiffuse( osg::Vec4(0.8, 0.8, 0.8, 1.0)
-    );
-
-    osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;
-    sm->setLight( source.get() );
-    sm->setTextureSize( osg::Vec2s(1024, 1024) );
-    sm->setTextureUnit( 1 );
-
-    osg::ref_ptr<osgShadow::ShadowedScene> root =
-            new osgShadow::ShadowedScene;
-    root->setShadowTechnique( sm.get() );
-    root->setReceivesShadowTraversalMask( rcvShadowMask );
-    root->setCastsShadowTraversalMask( castShadowMask );
-
-    osg::Group *group = new osg::Group();
-    osg::MatrixTransform *transform = new osg::MatrixTransform();
-    group->addChild(transform);
-
-    joint3 = buildJoint3(transform);
-    joint1 = buildJoint1(joint3);
-    joint2 = buildJoint2(joint1);
-    joint2->addChild(buildEndEffector());
-
-    root->addChild( transform );
-    root->addChild( joint3 );
-    root->addChild( joint1 );
-    root->addChild( joint2 );
-    root->addChild(buildEndEffector()  );
-    //root->addChild( source.get() );
-
-    //group->addChild(source.get());
-    return group;
 }
 
 void addTexture(osg::ShapeDrawable* shape, string file){
@@ -310,7 +292,52 @@ void addTexture(osg::ShapeDrawable* shape, string file){
     sphereStateSet->setTextureAttributeAndModes(0, texture, StateAttribute::ON);
 }
 
-osg::MatrixTransform *buildJoint3(osg::MatrixTransform *previousJoint)  //The Cylinder at the button
+osg::Group *createShapes() {
+    /*osg::ref_ptr<osg::LightSource> source = new osg::LightSource;
+    source->getLight()->setPosition( osg::Vec4(-5.0, 10.0, 5.0,
+                                               0.0) );
+    source->getLight()->setAmbient( osg::Vec4(0.2, 0.2, 0.2, 1.0)
+    );
+    source->getLight()->setDiffuse( osg::Vec4(0.8, 0.8, 0.8, 1.0)
+    );
+
+    osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;
+    sm->setLight( source.get() );
+    sm->setTextureSize( osg::Vec2s(1024, 1024) );
+    sm->setTextureUnit( 1 );
+
+    osg::ref_ptr<osgShadow::ShadowedScene> root =
+            new osgShadow::ShadowedScene;
+    root->setShadowTechnique( sm.get() );
+    root->setReceivesShadowTraversalMask( rcvShadowMask );
+    root->setCastsShadowTraversalMask( castShadowMask );*/
+
+    osg::Group *group = new osg::Group();
+    osg::MatrixTransform *transform = new osg::MatrixTransform();
+    group->addChild(transform);
+
+    joint0 = buildjoint0(transform);
+    joint0->addChild(buildJoint3());
+    joint1 = buildJoint1(joint0);
+    joint2 = buildJoint2(joint1);
+    joint2->addChild(buildEndEffector());
+
+    initPosPlate = joint1->getMatrix();
+    initPosBall = joint2->getMatrix();
+
+   /* root->addChild( transform );
+    root->addChild( joint0 );
+    root->addChild( joint1 );
+    root->addChild( joint2 );
+    root->addChild(buildEndEffector()  );
+    //root->addChild( source.get() );
+
+    //group->addChild(source.get());*/
+    return group;
+}
+
+
+osg::MatrixTransform *buildjoint0(osg::MatrixTransform *previousJoint)  //The Cylinder at the button
 {
     double length = 18.75;
     double width = 25;
@@ -331,7 +358,7 @@ osg::MatrixTransform *buildJoint3(osg::MatrixTransform *previousJoint)  //The Cy
     zTransform->setMatrix(zTrans * zRot);*/
     xTransform->addChild(zTransform);
 
-    addTexture(plate, "camTahta.bmp");
+    addTexture(plate, "altTahta.bmp");
 
     zTransform->setNodeMask( rcvShadowMask );
     return zTransform;
@@ -385,6 +412,29 @@ osg::MatrixTransform *buildJoint2(osg::MatrixTransform *previousJoint) {
     return zTransform;
 }
 
+osg::MatrixTransform *buildJoint3() {
+    osg::MatrixTransform *mt = new osg::MatrixTransform();
+    osg::Matrix m;
+
+    double length = 2.0;
+    double width = 2.0;
+    m.makeTranslate(0, 0, 0);    //coordinate of the box
+    mt->setMatrix(m);
+    osg::Geode *geode_3 = new osg::Geode;
+    osg::ShapeDrawable *shape1 = new osg::ShapeDrawable(new osg::Box(osg::Vec3(-0.5f, -9.0f, 7.0f), width, 0.5, length), hints);
+    shape1->setColor(osg::Vec4(0.5f, 0.5f, 0.9f, 1.0f));
+
+
+    geode_3->addDrawable(shape1);
+
+    addTexture(shape1, "sunmap.bmp");
+
+    mt->addChild(geode_3);
+
+    //mt->setNodeMask( castShadowMask );
+    return mt;
+}
+
 osg::MatrixTransform *buildEndEffector() {
     osg::MatrixTransform *mt = new osg::MatrixTransform();
     osg::Matrix m;
@@ -403,7 +453,7 @@ osg::MatrixTransform *buildEndEffector() {
 
     mt->addChild(geode_3);
 
-    mt->setNodeMask( castShadowMask );
+    //mt->setNodeMask( castShadowMask );
     return mt;
 }
 
@@ -457,7 +507,7 @@ int main(int, char **) {
             new osgWidget::WindowManager(&viewer, 1350.0f,
                                          680.0f, 0xf0000000);
     osg::Camera* camera = wm->createParentOrthoCamera();
-    wm->addChild( createSimpleTabs(800.0f, 400.0f) );
+    wm->addChild( createSimpleTabs(920.0f, 450.0f) );
     wm->resizeAllWindows();
     viewer.addEventHandler(
             new osgWidget::MouseHandler(wm.get()) );
@@ -478,7 +528,7 @@ int main(int, char **) {
     viewer.setSceneData( root.get() );
     viewer.realize();
 
-    makeMove(5,-7,joint1);
+    //makeMove(5,-7,joint1);
 
     return viewer.run();
 }

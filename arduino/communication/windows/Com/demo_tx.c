@@ -8,35 +8,34 @@ exit the program by pressing Ctrl-C
 
 compile with the command: gcc demo_tx.c rs232.c -Wall -Wextra -o2 -o test_tx
 
-Transmitted string format: <setPointX setPointY>
-
 **************************************************/
 
 #include <stdlib.h>
 #include <stdio.h>
 
 #ifdef _WIN32
-#include "windows.h"
+#include <Windows.h>
 #else
 #include <unistd.h>
 #endif
 
 #include "rs232.h"
 
-#define MSG_LEN 20
+
 
 int main()
 {
-  int cport_nr=5,        // change port no: http://www.teuniz.net/RS-232/
-      bdrate=9600;       // 9600 baud
-  int setPointX, setPointY;
+  int i=0,
+      cport_nr=3,        /* /dev/ttyS0 (COM1 on windows) */
+      bdrate=9600;       /* 9600 baud */
 
-  char mode[]={'8','E','2',0};  // change mode http://www.teuniz.net/RS-232/
-  char msgTx[MSG_LEN];
+  char mode[]={'8','N','1',0},
+       str[2][512];
 
-  setPointX = 200;
-  setPointY = 150;        //center
-  sprintf(msgTx, "%d %d", setPointX, setPointY);
+
+  strcpy(str[0], "The quick brown fox jumped over the lazy grey dog.\n");
+
+  strcpy(str[1], "Happy serial programming!\n");
 
   if(RS232_OpenComport(cport_nr, bdrate, mode))
   {
@@ -47,9 +46,9 @@ int main()
 
   while(1)
   {
-    RS232_cputs(cport_nr, msgTx);
+    RS232_cputs(cport_nr, str[i]);
 
-    printf("sent: %s\n", msgTx);
+    printf("sent: %s\n", str[i]);
 
 #ifdef _WIN32
     Sleep(1000);
@@ -57,6 +56,9 @@ int main()
     usleep(1000000);  /* sleep for 1 Second */
 #endif
 
+    i++;
+
+    i %= 2;
   }
 
   return(0);
