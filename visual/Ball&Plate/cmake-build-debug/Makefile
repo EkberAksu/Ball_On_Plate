@@ -38,19 +38,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe"
+CMAKE_COMMAND = "E:\Program Files\Windows\CLion 2016.3\bin\cmake\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -E remove -f
+RM = "E:\Program Files\Windows\CLion 2016.3\bin\cmake\bin\cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate"
+CMAKE_SOURCE_DIR = "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug"
+CMAKE_BINARY_DIR = "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -58,7 +58,7 @@ CMAKE_BINARY_DIR = "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-deb
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"E:\Program Files\Windows\CLion 2016.3\bin\cmake\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -69,7 +69,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"E:\Program Files\Windows\CLion 2016.3\bin\cmake\bin\cmake.exe" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug\CMakeFiles" "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug\CMakeFiles" "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug\CMakeFiles\progress.marks"
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -149,6 +149,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\Ball_Plate.dir\build.make CMakeFiles/Ball_Plate.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+rs232.obj: rs232.cpp.obj
+
+.PHONY : rs232.obj
+
+# target to build an object file
+rs232.cpp.obj:
+	$(MAKE) -f CMakeFiles\Ball_Plate.dir\build.make CMakeFiles/Ball_Plate.dir/rs232.cpp.obj
+.PHONY : rs232.cpp.obj
+
+rs232.i: rs232.cpp.i
+
+.PHONY : rs232.i
+
+# target to preprocess a source file
+rs232.cpp.i:
+	$(MAKE) -f CMakeFiles\Ball_Plate.dir\build.make CMakeFiles/Ball_Plate.dir/rs232.cpp.i
+.PHONY : rs232.cpp.i
+
+rs232.s: rs232.cpp.s
+
+.PHONY : rs232.s
+
+# target to generate assembly for a file
+rs232.cpp.s:
+	$(MAKE) -f CMakeFiles\Ball_Plate.dir\build.make CMakeFiles/Ball_Plate.dir/rs232.cpp.s
+.PHONY : rs232.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -161,6 +188,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... rs232.obj
+	@echo ... rs232.i
+	@echo ... rs232.s
 .PHONY : help
 
 

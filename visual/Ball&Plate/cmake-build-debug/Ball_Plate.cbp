@@ -8,18 +8,18 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug"/>
+				<Option working_dir="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Ball_Plate">
-				<Option output="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Ball_Plate.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug"/>
+				<Option output="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Ball_Plate.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -34,15 +34,15 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 Ball_Plate"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 Ball_Plate"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Ball_Plate/fast">
-				<Option output="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Ball_Plate.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug"/>
+				<Option output="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Ball_Plate.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -57,37 +57,43 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/5.3.0/include/c++/backward"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 Ball_Plate/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 Ball_Plate/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug"/>
+				<Option working_dir="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug"/>
+				<Option working_dir="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/main.cpp">
+		<Unit filename="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/main.cpp">
 			<Option target="Ball_Plate"/>
 		</Unit>
-		<Unit filename="C:/Users/Akbar Aziz/ClionProjects/Ball&amp;Plate/CMakeLists.txt">
+		<Unit filename="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/rs232.cpp">
+			<Option target="Ball_Plate"/>
+		</Unit>
+		<Unit filename="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/rs232.h">
+			<Option target="Ball_Plate"/>
+		</Unit>
+		<Unit filename="E:/Programlama/Proje1/395_Project1/visual/Ball&amp;Plate/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
