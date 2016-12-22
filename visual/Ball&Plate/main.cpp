@@ -43,6 +43,9 @@ osg::Matrix initPosBall;
 osg::Matrix initPosServo1;
 osg::Matrix initPosServo2;
 
+float setPointX = 0;
+float setPointY = 0;
+
 float jointAngle1;
 float jointAngle2;
 float EndEffector;
@@ -85,6 +88,30 @@ void makeMove(float x, float y);
 osg::TessellationHints *hints = new osg::TessellationHints;
 
 extern bool tabPressed( osgWidget::Event& ev );
+
+void changeSetPoint(float x, float y){
+    initPosBall.translate(x, 0, y);
+    setPointX = x;
+    setPointY = y;
+}
+
+int setPointsXfromPano(int xP, int yP){
+
+    if(1000 + 40*0.8f<xP && xP<1000+(400*0.8f) - 40*0.8f
+       &&50 + 30*0.8f<yP && yP<50+(300*0.8f) - 30*0.8f)
+        return (xP-1000)/0.8f;
+    else
+        return  setPointX;
+}
+
+int setPointsYfromPano(int xP, int yP){
+
+    if(1000 + 40*0.8f<xP && xP<1000+(400*0.8f) - 40*0.8f
+       &&50 + 30*0.8f<yP && yP<50+(300*0.8f) - 30*0.8f)
+        return  (yP-50)/0.8f;
+    else
+        return  setPointY;
+}
 
 osgWidget::Label* createLabel( const std::string& name,
                                const std::string& text, float size,
@@ -191,11 +218,12 @@ osgText::Text* createText( const osg::Vec3& pos,
 class GeometryUpdateCallback : public osg::Geometry::UpdateCallback {
 public:
 
-    GeometryUpdateCallback(int _cornerX, int _cornerY, int _x, int _y){
+    GeometryUpdateCallback(int _cornerX, int _cornerY, int _x, int _y, char axis){
         x = _x;
         y = _y;
         cornerX = _cornerX;
         cornerY = _cornerY;
+        this->axis = axis;
 
         vertices = new osg::Vec3Array;
         for(int i=0; i<x; i++) {
@@ -216,8 +244,11 @@ public:
         for(int i=0; i<vertices->size()-1; i++) {
             vertices->at(i).set(cornerX+i, vertices->at(i+1).y(), 0);
         }
-        k++;
-        vertices->push_back(osg::Vec3(cornerX + x, cornerY + (rand() % y) , 0));
+        if(axis == 'x')
+            vertices->push_back(osg::Vec3(cornerX + x, cornerY + (rand() % y) , 0));
+        else if(axis == 'y')
+            vertices->push_back(osg::Vec3(cornerX + x, cornerY + (rand() % y) , 0));
+
 
         geometry->setVertexArray(vertices);
         geometry->removePrimitiveSet(0, 1);
@@ -230,12 +261,12 @@ protected:
     int y ;
     int cornerX;
     int cornerY;
-    int k =0;
+    char axis;
     osg::Vec3Array * vertices;
 
 };
 
-osg::Geometry *makeChart(int _cornerX, int _cornerY, int _x, int _y){
+osg::Geometry *makeChart(int _cornerX, int _cornerY, int _x, int _y, char axis){
 
     osg::Geometry *linesGeom = new osg::Geometry();// is my geometry
     osg::DrawArrays *drawArrayLines = new osg::DrawArrays(osg::PrimitiveSet::LINE_STRIP);
@@ -252,7 +283,7 @@ osg::Geometry *makeChart(int _cornerX, int _cornerY, int _x, int _y){
     linesGeom->setUseDisplayList( false );
     linesGeom->setUseVertexBufferObjects( false );
 
-    linesGeom->setUpdateCallback( new GeometryUpdateCallback(_cornerX, _cornerY, _x, _y) );
+    linesGeom->setUpdateCallback( new GeometryUpdateCallback(_cornerX, _cornerY, _x, _y, axis) );
 
     return linesGeom;
 
@@ -292,15 +323,15 @@ osg::Geometry *makePano(int _cornerX, int _cornerY, int _x, int _y){
 
     int emptyEdge = 0;
     osg::Vec3Array *chartCorner = new osg::Vec3Array;
-    chartCorner->push_back(osg::Vec3(_cornerX - emptyEdge, _cornerY- emptyEdge, 0));
-    chartCorner->push_back(osg::Vec3(_cornerX +_x + emptyEdge, _cornerY - emptyEdge, 0));
-    chartCorner->push_back(osg::Vec3(_cornerX +_x + emptyEdge, _cornerY + _y + emptyEdge, 0));
-    chartCorner->push_back(osg::Vec3(_cornerX - emptyEdge,_cornerY + _y + emptyEdge, 0));
+    chartCorner->push_back(osg::Vec3(_cornerX , _cornerY , 0));
+    chartCorner->push_back(osg::Vec3(_cornerX +_x , _cornerY , 0));
+    chartCorner->push_back(osg::Vec3(_cornerX +_x , _cornerY + _y, 0));
+    chartCorner->push_back(osg::Vec3(_cornerX ,_cornerY + _y , 0));
 
     chartGeom->setVertexArray(chartCorner);
 
     osg::Vec4Array* colors = new osg::Vec4Array;
-    colors->push_back(osg::Vec4(0.8f, 0.8f, 0.8f, 1.0f));
+    colors->push_back(osg::Vec4(0.8f, 0.8f, 0.8f, 0.6f));
     chartGeom->setColorArray(colors);
     chartGeom->setColorBinding(osg::Geometry::BIND_PER_PRIMITIVE_SET);
 
@@ -308,6 +339,34 @@ osg::Geometry *makePano(int _cornerX, int _cornerY, int _x, int _y){
     osg::StateSet* stateset = chartGeom->getOrCreateStateSet();
     stateset->setMode(GL_BLEND,osg::StateAttribute::ON);
     stateset->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+
+    chartGeom->addPrimitiveSet(new osg::DrawArrays(GL_QUADS, 0, 4));
+
+    return chartGeom;
+
+}
+
+osg::Geometry *makePanoLines(int _cornerX, int _cornerY, int _x, int _y){
+
+    osg::Geometry *chartGeom = new osg::Geometry();// is my geometry
+
+
+    osg::Vec3Array *chartCorner = new osg::Vec3Array;
+
+    chartCorner->push_back(osg::Vec3(_cornerX+40*0.8f,_cornerY + _y - 30*0.8f, 0));
+    chartCorner->push_back(osg::Vec3(_cornerX+40*0.8f, _cornerY +  30*0.8f, 0));
+    chartCorner->push_back(osg::Vec3(_cornerX +_x - 40*0.8f, _cornerY + 30*0.8f, 0));
+    chartCorner->push_back(osg::Vec3(_cornerX +_x - 40*0.8f, _cornerY + _y - 30*0.8f, 0));
+
+    chartGeom->setVertexArray(chartCorner);
+
+    osg::ref_ptr<osg::Vec4Array> colors = new osg::Vec4Array;
+    colors->push_back( osg::Vec4(0.0f, 0.0f, 0.0f, 1.0f) );
+    chartGeom->setColorArray( colors.get() );
+    chartGeom->setColorBinding( osg::Geometry::BIND_PER_PRIMITIVE_SET );
+
+    chartGeom->setUseDisplayList( false );
+    chartGeom->setUseVertexBufferObjects( false );
 
     chartGeom->addPrimitiveSet(new osg::DrawArrays(GL_QUADS, 0, 4));
 
@@ -342,7 +401,57 @@ osg::Geometry *makeLines(int _cornerX, int _cornerY, int _x, int _y){
 
 }
 
-osg::Geometry *makeSetPointLine(int _cornerX, int _cornerY, int _x, int setPoint){
+class GeoSetLinesUpdateCallback : public osg::Geometry::UpdateCallback {
+public:
+    GeoSetLinesUpdateCallback(int _cornerX, int _cornerY, int _x, char _axis ){
+        x = _x;
+        cornerX = _cornerX;
+        cornerY = _cornerY;
+        axis = _axis;
+
+    }
+
+    virtual void update(osg::NodeVisitor *, osg::Drawable *drawable) {
+
+        osg::Geometry *geometry = dynamic_cast<osg::Geometry *>(drawable);
+        if (!geometry) return;
+
+        osg::Vec3Array *chartCorner = new osg::Vec3Array;
+
+        if(axis == 'x') {
+            chartCorner->push_back(osg::Vec3(cornerX, cornerY + setPointX/4.0f, 0));
+            chartCorner->push_back(osg::Vec3(cornerX + x, cornerY + setPointX/4.0f, 0));
+        }
+        else if(axis == 'y'){
+            chartCorner->push_back(osg::Vec3(cornerX, cornerY + setPointY/4.0f, 0));
+            chartCorner->push_back(osg::Vec3(cornerX + x, cornerY + setPointY/4.0f, 0));
+        }
+
+        geometry->setVertexArray(chartCorner);
+
+        osg::ref_ptr<osg::Vec4Array> colors = new osg::Vec4Array;
+        colors->push_back( osg::Vec4(0.0f, 0.0f, 0.5f, 0.0f) );
+        geometry->setColorArray( colors.get() );
+        geometry->setColorBinding( osg::Geometry::BIND_PER_PRIMITIVE_SET );
+
+        geometry->setUseDisplayList( false );
+        geometry->setUseVertexBufferObjects( false );
+
+        geometry->removePrimitiveSet(0, 1);
+        geometry->addPrimitiveSet(new osg::DrawArrays(GL_LINE_STRIP, 0, 2));
+
+    }
+
+protected:
+    int x ;
+    int cornerX;
+    int cornerY;
+    char axis;
+    osg::Vec3Array * vertices;
+
+};
+
+osg::Geometry *makeSetPointLine(int _cornerX, int _cornerY, int _x, char axis){
 
     osg::Geometry *chartGeom = new osg::Geometry();// is my geometry
 
@@ -350,8 +459,8 @@ osg::Geometry *makeSetPointLine(int _cornerX, int _cornerY, int _x, int setPoint
 
     osg::Vec3Array *chartCorner = new osg::Vec3Array;
 
-    chartCorner->push_back(osg::Vec3(_cornerX ,_cornerY + setPoint , 0));
-    chartCorner->push_back(osg::Vec3(_cornerX + _x,_cornerY + setPoint  , 0));
+    chartCorner->push_back(osg::Vec3(_cornerX ,_cornerY , 0));
+    chartCorner->push_back(osg::Vec3(_cornerX + _x,_cornerY , 0));
 
     chartGeom->setVertexArray(chartCorner);
 
@@ -364,10 +473,12 @@ osg::Geometry *makeSetPointLine(int _cornerX, int _cornerY, int _x, int setPoint
     chartGeom->setUseVertexBufferObjects( false );
 
     chartGeom->addPrimitiveSet(new osg::DrawArrays(GL_LINE_STRIP, 0, 2));
+    chartGeom->setUpdateCallback( new GeoSetLinesUpdateCallback(_cornerX, _cornerY, _x, axis) );
 
     return chartGeom;
 
 }
+
 
 osg::Geometry *makeGuideLines(int _cornerX, int _cornerY, int _x, int _y, char axes){
 
@@ -410,22 +521,22 @@ osg::Geometry *makeGuideLines(int _cornerX, int _cornerY, int _x, int _y, char a
     return chartGeom;
 
 }
-osg::Geometry *makeShortLines(int _cornerX, int _cornerY, int _x, int _y, char axes){
+osg::Geometry *makeShortLines(int _cornerX, int _cornerY, int _x, int _y, char axis){
 
     osg::Geometry *chartGeom = new osg::Geometry();// is my geometry
-    int emptyBetween;
+    float emptyBetween;
 
-    if(axes == 'y')
-        emptyBetween = _y/6;
-    else if(axes == 'x')
-        emptyBetween = _y/8;
+    if(axis == 'y')
+        emptyBetween = _y/6.0f;
+    else if(axis == 'x')
+        emptyBetween = _y/8.0f;
     int line = 5;
 
     osg::Vec3Array *chartCorner = new osg::Vec3Array;
 
     for(int i = 0; i< 8; i++){
-        chartCorner->push_back(osg::Vec3(_cornerX - line,_cornerY + (i+1)*emptyBetween, 0));
-        chartCorner->push_back(osg::Vec3(_cornerX,_cornerY + (i+1)*emptyBetween, 0));
+        chartCorner->push_back(osg::Vec3(_cornerX - line,_cornerY + (i+1)*emptyBetween-1, 0));
+        chartCorner->push_back(osg::Vec3(_cornerX,_cornerY + (i+1)*emptyBetween-1, 0));
     }
 
     chartGeom->setVertexArray(chartCorner);
@@ -438,15 +549,16 @@ osg::Geometry *makeShortLines(int _cornerX, int _cornerY, int _x, int _y, char a
     chartGeom->setUseDisplayList( false );
     chartGeom->setUseVertexBufferObjects( false );
 
-    if(axes == 'y')
+    if(axis == 'y')
         chartGeom->addPrimitiveSet(new osg::DrawArrays(GL_LINES, 0, 12));
-    else if(axes == 'x')
+    else if(axis == 'x')
         chartGeom->addPrimitiveSet(new osg::DrawArrays(GL_LINES, 0, 16));
 
 
     return chartGeom;
 
 }
+
 
 void makeAllTextYChart(osg::ref_ptr<osg::Geode> geode, int _cornerX, int _cornerY, int _y){
 
@@ -552,24 +664,31 @@ void makeAllTextXChart(osg::ref_ptr<osg::Geode> geode, int _cornerX, int _corner
 
 void drawCharts(osg::ref_ptr<osg::Geode> geode,float x, float y){
 
-    geode->addDrawable(makeChart(x, y+150, 250, 100));
+    geode->addDrawable(makeChart(x, y+150, 250, 100, 'x'));
     geode->addDrawable(makeLines(x, y+150, 250, 100));
     geode->addDrawable(makeShortLines(x, y+150, 250, 100, 'x'));
     geode->addDrawable(makeGuideLines(x, y+150, 250, 100, 'x'));
-    geode->addDrawable(makeSetPointLine(x, y+150, 250, 40));
+    geode->addDrawable(makeSetPointLine(x, y+150, 250, 'x'));
     geode->addDrawable(makeChartPano(x, y+150, 250, 100));
 
-    geode->addDrawable(makeChart(x, y, 250, 75));
+    geode->addDrawable(makeChart(x, y, 250, 75, 'y'));
     geode->addDrawable(makeLines(x, y, 250, 75));
     geode->addDrawable(makeShortLines(x, y, 250, 75, 'y'));
     geode->addDrawable(makeGuideLines(x, y, 250, 75, 'y'));
-    geode->addDrawable(makeSetPointLine(x, y, 250, 30));
+    geode->addDrawable(makeSetPointLine(x, y, 250, 'y'));
     geode->addDrawable(makeChartPano(x, y, 250, 75));
+
+    //sağ alttaki panoyu çiz
+    geode->addDrawable(makePano( 1000.0, 50.0, 400*0.8f, 300*0.8f));
+    geode->addDrawable(makePanoLines( 1000.0, 50.0, 400*0.8f, 300*0.8f));
+
+
 }
 
 // class to handle events with a pick
 class PickHandler : public osgGA::GUIEventHandler
 {
+    float x, y;
 public:
 
     PickHandler():
@@ -588,20 +707,11 @@ public:
             {
                 _mx = ea.getX();
                 _my = ea.getY();
-                //osg::notify(osg::NOTICE)<<ea.getX()<<"  "<<ea.getY()<<std::endl;
-                return false;
-            }
-            case(osgGA::GUIEventAdapter::MOVE):
-            {
-                _mx = ea.getX();
-                _my = ea.getY();
-                osg::notify(osg::NOTICE)<<ea.getX()<<"  "<<ea.getY()<<std::endl;
-                return false;
-            }
-            case(osgGA::GUIEventAdapter::RELEASE):
-            {
-                _mx = ea.getX();
-                _my = ea.getY();
+                x = setPointsXfromPano(_mx, _my);
+                y = setPointsYfromPano(_mx, _my);
+                changeSetPoint(x,y);
+                osg::notify(osg::NOTICE)<<"setPointX = "<<setPointX<<", "<<_mx<<std::endl;
+                osg::notify(osg::NOTICE)<<"setPointY = "<<setPointY<<", "<<_my<<std::endl;
                 return false;
             }
             default:
@@ -611,7 +721,6 @@ public:
 protected:
     float _mx,_my;
 };
-
 
 class KeyboardEventHandler : public osgGA::GUIEventHandler {
 public:
@@ -708,9 +817,9 @@ public:
 };
 
 void makeMove(float x, float y){
-    KeyboardEventHandler::rotateX(-x*osg::PI/180, joint1);
-    KeyboardEventHandler::rotateY(-y*osg::PI/180, joint1);
-    KeyboardEventHandler::translate(x, 0.0, y,joint2);
+    KeyboardEventHandler::rotateX(-(setPointX-x)*osg::PI/180, joint1);
+    KeyboardEventHandler::rotateY(-(setPointY-y)*osg::PI/180, joint1);
+    KeyboardEventHandler::translate((setPointX-x), 0.0, (setPointY-y),joint2);
 }
 
 void addTexture(osg::ShapeDrawable* shape, string file){
@@ -735,6 +844,56 @@ void addTexture(osg::ShapeDrawable* shape, string file){
     sphereStateSet->ref();
     sphereStateSet->setAttribute(material);
     sphereStateSet->setTextureAttributeAndModes(0, texture, StateAttribute::ON);
+}
+
+void addTexture(osg::Geode* shape, string file){
+    osg::Texture2D* KLN89FaceTexture = new osg::Texture2D;
+
+    // protect from being optimized away as static state:
+    KLN89FaceTexture->setDataVariance(osg::Object::DYNAMIC);
+
+    // load an image by reading a file:
+    osg::Image* klnFace = osgDB::readImageFile("KLN89FaceB.tga");
+    if (!klnFace)
+    {
+        std::cout << " couldn't find texture, quiting." << std::endl;
+        return ;
+    }
+
+    // Assign the texture to the image we read from file:
+    KLN89FaceTexture->setImage(klnFace);
+
+    // Create a new StateSet with default settings:
+    osg::StateSet* stateOne = new osg::StateSet();
+
+    // Assign texture unit 0 of our new StateSet to the texture
+    // we just created and enable the texture.
+    stateOne->setTextureAttributeAndModes
+            (0,KLN89FaceTexture,osg::StateAttribute::ON);
+    // Associate this state set with the Geode that contains
+    // the pyramid:
+    shape->setStateSet(stateOne);
+   /* // create a simple material
+    Material *material = new Material();
+    material->setEmission(Material::FRONT, Vec4(0.8, 0.8, 0.8, 1.0));
+
+    Image *image = osgDB::readImageFile(file);
+    if (!image) {
+        std::cout << "Couldn't load texture." << std::endl;
+        return ;
+    }
+    osg::Texture2D *texture = new Texture2D;
+    texture->setDataVariance(Object::DYNAMIC);
+    texture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
+    texture->setFilter(Texture::MAG_FILTER, Texture::LINEAR);
+    //texture->setWrap(Texture::WRAP_S, Texture::CLAMP);
+    //texture->setWrap(Texture::WRAP_T, Texture::CLAMP);
+    texture->setImage(image);
+
+    StateSet *sphereStateSet = shape->getOrCreateStateSet();
+    sphereStateSet->ref();
+    sphereStateSet->setAttribute(material);
+    sphereStateSet->setTextureAttributeAndModes(0, texture, StateAttribute::ON);*/
 }
 
 osg::Group *createShapes() {
@@ -783,6 +942,8 @@ osg::Group *createShapes() {
     joint12->addChild(joint13);
     joint14 = buildJoint14();
     joint2->addChild(joint14);
+
+    //joint14->setCullingActive(false);
 
     initPosPlate = joint1->getMatrix();
     initPosBall = joint2->getMatrix();
@@ -1241,7 +1402,12 @@ int main(int, char **) {
     osg::StateSet* stateset = geode->getOrCreateStateSet();
     stateset->setMode(GL_DEPTH_TEST,osg::StateAttribute::OFF);
     stateset->setRenderBinDetails(11,"RenderBin");
-    geode->addDrawable(makePano( 1000.0, 50.0, 400*0.8, 300*0.8));
+
+    osg::ref_ptr<osg::Geode> screenGeode = new osg::Geode;
+    osg::Geometry * screen = makePano( 1000.0, 50.0, 400*0.8, 300*0.8);
+    screenGeode->addDrawable(screen);
+
+    addTexture(screenGeode, "tahta.bmp");
 
 //-----------------------------------------------layer/buttons----------------------------------------
     osg::ref_ptr<osgWidget::WindowManager> wm =
@@ -1263,6 +1429,7 @@ int main(int, char **) {
     //osg::Camera *camera = createHUDCamera(0, 1024, 0, 768);
     camera->addChild(textGeode.get());
     camera->addChild(geode);
+    camera->addChild(screenGeode);
     //camera->addChild( buttonGeode.get() );
     camera->getOrCreateStateSet()->setMode(
             GL_LIGHTING, osg::StateAttribute::OFF);
