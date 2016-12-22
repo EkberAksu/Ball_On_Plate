@@ -46,7 +46,7 @@ macro(config_project PROJNAME LIBNAME)
     target_link_libraries(${PROJNAME} ${${LIBNAME}_LIBRARY})
 endmacro()
 
-add_executable(Ball_Plate main.cpp)
+add_executable(Ball_Plate main.cpp rs232.h rs232.cpp)
 config_project(Ball_Plate OPENTHREADS)
 config_project(Ball_Plate OSG)
 config_project(Ball_Plate OSGDB)

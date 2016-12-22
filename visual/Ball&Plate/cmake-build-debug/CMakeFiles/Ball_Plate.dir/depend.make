@@ -230,4 +230,8 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/Window
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: C:/Program\ Files\ (x86)/OpenSceneGraph/include/osgWidget/WindowManager
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: ../main.cpp
+CMakeFiles/Ball_Plate.dir/main.cpp.obj: ../rs232.h
+
+CMakeFiles/Ball_Plate.dir/rs232.cpp.obj: ../rs232.cpp
+CMakeFiles/Ball_Plate.dir/rs232.cpp.obj: ../rs232.h
 

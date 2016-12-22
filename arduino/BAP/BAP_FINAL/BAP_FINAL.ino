@@ -45,6 +45,7 @@ char msgRx[15];  // #format: <move isGame> (char,char)
                  // move control input, no input is represented by 0
                  // isGame option activates game option
 int iRx=0;
+char inByte; //input byte
 
 void setup()
 {
@@ -101,7 +102,6 @@ void loop()
     else{
       myPIDX.Compute();  //action control X compute
       myPIDY.Compute();  //action control  Y compute  
-
       //Serial.print(InputX);   Serial.print(",");  Serial.print(InputY);  Serial.print("\n");
 
       OutputX = abs(180 - OutputX);
@@ -116,14 +116,12 @@ void loop()
       counter=0;
     else
       counter++;
-
     servoX.write(averageX());//control
     servoY.write(averageY());//control
-    if(InputX!=666 && InputY!=666)
-      communicate();
+    communicate();
+    
      
-  }////END OF REGULATION LOOP///
-
+  }////END OF REGULATION LOOP/// 
   servoX.detach();//detach servos
   servoY.detach();
   
@@ -144,9 +142,12 @@ void loop()
       servoY.attach(10);
       Stable=0; //change STABLE state
     }
-    if(InputX!=666 && InputY!=666)
-      communicate();
+    
+    communicate();
+    
   }//end of STABLE LOOP
+
+  
 }//loop end
 
 /*-----------------------------FUNCTIONS---------------------------*/
@@ -159,34 +160,41 @@ int averageY(){
 }
 
 void communicate(){
-  /*
+  int sX,sY;
   if(rx() == 1){  //msg received
-    sscanf(msgRx, "%c %c",moveRx,isGameRx);  //get values
-    performRxCommand();
+    Serial.print(msgRx);
+    sscanf(msgRx, "%d,%d",&sX,&sY);  //get values
+    SetpointX = (double)sX;
+    SetpointY = (double)sY;
+    Serial.print("\n");
+    Serial.print(sX);Serial.print(" , ");Serial.print(sY);Serial.print("\n");
+    //performRxCommand();
     clearRx();
   }
-  */
-  /*
-  if(InputX <0 || InputY < 0)
-    Serial.write(' ');
-  else  */
+  if(InputX!=666 && InputY!=666)
     tx();
+  //delay(5);
 }
-/*
+
 int rx(){
+  int k=0;
   if (Serial.available() > 0) 
-  { 
+  { while(k<8){
     inByte = Serial.read();
-    if(inByte == '\0'){
-      msgRx[iRx] = inByte;
+    //Serial.write(inByte);
+    //Serial.write("\n");
+    if((inByte )== 'x'){
+      msgRx[iRx] = '\0';
       return 1;
     }else{
-      msgRx[iRx++] = inByte;    //concat msg
+      msgRx[iRx++] = (inByte);    //concat msg
     }
+    k++;
+  }
   }
   return 0;
 }
-*/
+
 //writes msg string to serial port
 void tx(){
   setStatus();

@@ -33,19 +33,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe"
+CMAKE_COMMAND = "E:\Program Files\Windows\CLion 2016.3\bin\cmake\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files (x86)\JetBrains\CLion 2016.3\bin\cmake\bin\cmake.exe" -E remove -f
+RM = "E:\Program Files\Windows\CLion 2016.3\bin\cmake\bin\cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate"
+CMAKE_SOURCE_DIR = "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug"
+CMAKE_BINARY_DIR = "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Ball_Plate.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/Ball_Plate.dir/flags.make
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: CMakeFiles/Ball_Plate.dir/flags.make
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: CMakeFiles/Ball_Plate.dir/includes_CXX.rsp
 CMakeFiles/Ball_Plate.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Ball_Plate.dir/main.cpp.obj"
-	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Ball_Plate.dir\main.cpp.obj -c "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Ball_Plate.dir/main.cpp.obj"
+	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Ball_Plate.dir\main.cpp.obj -c "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\main.cpp"
 
 CMakeFiles/Ball_Plate.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Ball_Plate.dir/main.cpp.i"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\main.cpp" > CMakeFiles\Ball_Plate.dir\main.cpp.i
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\main.cpp" > CMakeFiles\Ball_Plate.dir\main.cpp.i
 
 CMakeFiles/Ball_Plate.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ball_Plate.dir/main.cpp.s"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\main.cpp" -o CMakeFiles\Ball_Plate.dir\main.cpp.s
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\main.cpp" -o CMakeFiles\Ball_Plate.dir\main.cpp.s
 
 CMakeFiles/Ball_Plate.dir/main.cpp.obj.requires:
 
@@ -81,14 +81,41 @@ CMakeFiles/Ball_Plate.dir/main.cpp.obj.provides: CMakeFiles/Ball_Plate.dir/main.
 CMakeFiles/Ball_Plate.dir/main.cpp.obj.provides.build: CMakeFiles/Ball_Plate.dir/main.cpp.obj
 
 
+CMakeFiles/Ball_Plate.dir/rs232.cpp.obj: CMakeFiles/Ball_Plate.dir/flags.make
+CMakeFiles/Ball_Plate.dir/rs232.cpp.obj: CMakeFiles/Ball_Plate.dir/includes_CXX.rsp
+CMakeFiles/Ball_Plate.dir/rs232.cpp.obj: ../rs232.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Ball_Plate.dir/rs232.cpp.obj"
+	C:\MinGW\bin\g++.exe   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Ball_Plate.dir\rs232.cpp.obj -c "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\rs232.cpp"
+
+CMakeFiles/Ball_Plate.dir/rs232.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Ball_Plate.dir/rs232.cpp.i"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\rs232.cpp" > CMakeFiles\Ball_Plate.dir\rs232.cpp.i
+
+CMakeFiles/Ball_Plate.dir/rs232.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Ball_Plate.dir/rs232.cpp.s"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\rs232.cpp" -o CMakeFiles\Ball_Plate.dir\rs232.cpp.s
+
+CMakeFiles/Ball_Plate.dir/rs232.cpp.obj.requires:
+
+.PHONY : CMakeFiles/Ball_Plate.dir/rs232.cpp.obj.requires
+
+CMakeFiles/Ball_Plate.dir/rs232.cpp.obj.provides: CMakeFiles/Ball_Plate.dir/rs232.cpp.obj.requires
+	$(MAKE) -f CMakeFiles\Ball_Plate.dir\build.make CMakeFiles/Ball_Plate.dir/rs232.cpp.obj.provides.build
+.PHONY : CMakeFiles/Ball_Plate.dir/rs232.cpp.obj.provides
+
+CMakeFiles/Ball_Plate.dir/rs232.cpp.obj.provides.build: CMakeFiles/Ball_Plate.dir/rs232.cpp.obj
+
+
 # Object files for target Ball_Plate
 Ball_Plate_OBJECTS = \
-"CMakeFiles/Ball_Plate.dir/main.cpp.obj"
+"CMakeFiles/Ball_Plate.dir/main.cpp.obj" \
+"CMakeFiles/Ball_Plate.dir/rs232.cpp.obj"
 
 # External object files for target Ball_Plate
 Ball_Plate_EXTERNAL_OBJECTS =
 
 Ball_Plate.exe: CMakeFiles/Ball_Plate.dir/main.cpp.obj
+Ball_Plate.exe: CMakeFiles/Ball_Plate.dir/rs232.cpp.obj
 Ball_Plate.exe: CMakeFiles/Ball_Plate.dir/build.make
 Ball_Plate.exe: C:/Program\ Files\ (x86)/OpenSceneGraph/bin/libOpenThreads.dll
 Ball_Plate.exe: C:/Program\ Files\ (x86)/OpenSceneGraph/bin/libosg.dll
@@ -111,7 +138,7 @@ Ball_Plate.exe: C:/Program\ Files\ (x86)/OpenSceneGraph/bin/libosgUI.dll
 Ball_Plate.exe: CMakeFiles/Ball_Plate.dir/linklibs.rsp
 Ball_Plate.exe: CMakeFiles/Ball_Plate.dir/objects1.rsp
 Ball_Plate.exe: CMakeFiles/Ball_Plate.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Ball_Plate.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Ball_Plate.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Ball_Plate.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -120,6 +147,7 @@ CMakeFiles/Ball_Plate.dir/build: Ball_Plate.exe
 .PHONY : CMakeFiles/Ball_Plate.dir/build
 
 CMakeFiles/Ball_Plate.dir/requires: CMakeFiles/Ball_Plate.dir/main.cpp.obj.requires
+CMakeFiles/Ball_Plate.dir/requires: CMakeFiles/Ball_Plate.dir/rs232.cpp.obj.requires
 
 .PHONY : CMakeFiles/Ball_Plate.dir/requires
 
@@ -128,6 +156,6 @@ CMakeFiles/Ball_Plate.dir/clean:
 .PHONY : CMakeFiles/Ball_Plate.dir/clean
 
 CMakeFiles/Ball_Plate.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate" "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate" "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug" "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug" "C:\Users\Akbar Aziz\ClionProjects\Ball&Plate\cmake-build-debug\CMakeFiles\Ball_Plate.dir\DependInfo.cmake" --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate" "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate" "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug" "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug" "E:\Programlama\Proje1\395_Project1\visual\Ball&Plate\cmake-build-debug\CMakeFiles\Ball_Plate.dir\DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/Ball_Plate.dir/depend
 

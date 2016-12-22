@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Ball_Plate.dir/main.cpp.obj"
+  "CMakeFiles/Ball_Plate.dir/rs232.cpp.obj"
   "Ball_Plate.pdb"
   "Ball_Plate.exe"
   "Ball_Plate.exe.manifest"

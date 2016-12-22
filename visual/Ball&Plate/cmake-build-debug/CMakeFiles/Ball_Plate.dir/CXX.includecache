@@ -2300,7 +2300,7 @@ osgWidget/StyleManager
 osgWidget/Window
 -
 
-C:/Users/Akbar Aziz/ClionProjects/Ball&Plate/main.cpp
+E:/Programlama/Proje1/395_Project1/visual/Ball&Plate/main.cpp
 osg/Geode
 -
 osg/ShapeDrawable
@@ -2360,6 +2360,38 @@ osgWidget/ViewerEventHandlers
 iostream
 -
 sstream
+-
+windows.h
+-
+rs232.h
+E:/Programlama/Proje1/395_Project1/visual/Ball&Plate/rs232.h
+
+E:/Programlama/Proje1/395_Project1/visual/Ball&Plate/rs232.cpp
+rs232.h
+E:/Programlama/Proje1/395_Project1/visual/Ball&Plate/rs232.h
+
+E:/Programlama/Proje1/395_Project1/visual/Ball&Plate/rs232.h
+stdio.h
+-
+string.h
+-
+termios.h
+-
+sys/ioctl.h
+-
+unistd.h
+-
+fcntl.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+limits.h
+-
+sys/file.h
+-
+errno.h
 -
 windows.h
 -
