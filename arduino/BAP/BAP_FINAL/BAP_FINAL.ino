@@ -1,8 +1,10 @@
 /*PROJE_1 COURSE - BALL AND PLATE PROJECT - GROUP 1*/
 #include <stdint.h>
 #include<Servo.h>
+#include <Keypad.h>
 #include "PID_v1.h"
 #include "TouchScreen.h"
+
 
 //Set Touch Pins
 #define YP A0 //0
@@ -45,6 +47,29 @@ char msgRx[15];  // #format: <move isGame> (char,char)
                  // move control input, no input is represented by 0
                  // isGame option activates game option
 int iRx=0;
+char inByte; //input byte
+int gameChoice=1;
+
+// Keypad Initialization
+const byte ROWS = 4; //four rows
+const byte COLS = 4; //three columns
+char keys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+byte colPins[ROWS] = {25,24,23,22}; //connect to the row pinouts of the keypad
+byte rowPins[COLS] = {29, 28, 27,26}; //connect to the column pinouts of the keypad
+Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
+
+byte rowPins2[ROWS] = {46,47,48,49};
+byte colPins2[COLS] = {50,51,52,53};
+Keypad keypad2 = Keypad( makeKeymap(keys),rowPins2,colPins2,ROWS,COLS);
+int score[2]={0,0};
+
+int kale2X=10,kale2Ya =110,kale2Yb=210;
+int kale1X=385,kale1Ya =90,kale1Yb=190;
 
 void setup()
 {
@@ -82,10 +107,10 @@ void setup()
  
 void loop()
 {
-  while(Stable<100) //stable loop
+if(gameChoice==1){
+  while(Stable<100 && gameChoice == 1) //stable loop
   {
     TSPoint p = ts.getPoint();   //measure pressure on plate
-   
     InputX  = map(p.x,115,960,0,400);
     InputY = map(p.y,150,910,0,300);
     
@@ -101,7 +126,6 @@ void loop()
     else{
       myPIDX.Compute();  //action control X compute
       myPIDY.Compute();  //action control  Y compute  
-
       //Serial.print(InputX);   Serial.print(",");  Serial.print(InputY);  Serial.print("\n");
 
       OutputX = abs(180 - OutputX);
@@ -116,14 +140,12 @@ void loop()
       counter=0;
     else
       counter++;
-
     servoX.write(averageX());//control
     servoY.write(averageY());//control
-    if(InputX!=666 && InputY!=666)
-      communicate();
+    communicate();
+    
      
-  }////END OF REGULATION LOOP///
-
+  }////END OF REGULATION LOOP/// 
   servoX.detach();//detach servos
   servoY.detach();
   
@@ -144,9 +166,38 @@ void loop()
       servoY.attach(10);
       Stable=0; //change STABLE state
     }
-    if(InputX!=666 && InputY!=666)
-      communicate();
+    
+    communicate();
+    
   }//end of STABLE LOOP
+}else{//FOOTBALL GAME
+   servoX.attach(9); //again attach servos
+   servoY.attach(10);
+  //Serial.print("Girdi");
+  TSPoint p = ts.getPoint();   //measure pressure on plate
+    InputX  = map(p.x,115,960,0,400);
+    InputY = map(p.y,150,910,0,300);
+   
+  //Serial.print(InputX);Serial.print(" , ");Serial.print(InputY);Serial.print("\n");
+  if(InputX >= 200 && InputX>=0 && InputY >=0)
+    plateMoveKeypad1();
+  else if(InputX>=0 && InputY >=0)
+    plateMoveKeypad2();   
+  if( InputX>0 && InputY > 0 && goal() > 0){
+    /*
+    Serial.print("GOOOOAAAALLLL ,  SCORE: ");
+    Serial.print(score[0]);
+    Serial.print(" , ");
+    Serial.print(score[1]);
+    Serial.print(" \n");
+    */
+    servoX.write(90);
+    servoY.write(90);
+    //delay(1000);
+  }
+  communicate();
+}
+  
 }//loop end
 
 /*-----------------------------FUNCTIONS---------------------------*/
@@ -159,34 +210,51 @@ int averageY(){
 }
 
 void communicate(){
-  /*
+  int sX,sY;
   if(rx() == 1){  //msg received
-    sscanf(msgRx, "%c %c",moveRx,isGameRx);  //get values
-    performRxCommand();
+    //Serial.print(msgRx);
+    sscanf(msgRx, "%d,%d",&sX,&sY);  //get values
+    if(sX == 999|| sY ==999){
+      gameChoice=2;
+      //Serial.print(msgRx);
+    //Serial.print("\n");
+    //Serial.print(sX);Serial.print(" , ");Serial.print(sY);Serial.print("\n");
+    }else if(sX == 888|| sY ==888){
+      gameChoice=1;
+      //Serial.print(msgRx);
+      //Serial.print("\n");
+      //Serial.print(sX);Serial.print(" , ");Serial.print(sY);Serial.print("\n");
+    }else{
+      SetpointX = (double)sX;
+      SetpointY = (double)sY;
+    }
+    //performRxCommand();
     clearRx();
   }
-  */
-  /*
-  if(InputX <0 || InputY < 0)
-    Serial.write(' ');
-  else  */
+  if(InputX!=666 && InputY!=666)
     tx();
+  //delay(5);
 }
-/*
+
 int rx(){
+  int k=0;
   if (Serial.available() > 0) 
-  { 
+  { while(k<8){
     inByte = Serial.read();
-    if(inByte == '\0'){
-      msgRx[iRx] = inByte;
+    //Serial.write(inByte);
+    //Serial.write("\n");
+    if((inByte )== 'x'){
+      msgRx[iRx] = '\0';
       return 1;
     }else{
-      msgRx[iRx++] = inByte;    //concat msg
+      msgRx[iRx++] = (inByte);    //concat msg
     }
+    k++;
+  }
   }
   return 0;
 }
-*/
+
 //writes msg string to serial port
 void tx(){
   setStatus();
@@ -215,9 +283,95 @@ int msgRxLength(){
 
 void clearRx(){
   sprintf(msgRx, "");
+  memset(msgRx,"",msgRxLength());
   iRx=0;
 }
 
 void clearTx(){
   sprintf(msgTx, "");
+}
+//FOOTBALL GAME
+void plateMoveKeypad1()  {
+  char key = keypad.getKey();
+  if (key){ 
+    switch (key)  {
+       case '2':
+       servoX.write(servoX.read() + 20);
+             delay(500);
+             servoX.write(90);            
+              break;       
+        case '4':
+            servoY.write(servoY.read() + 20);
+            delay(500);
+            servoY.write(90); 
+            break;
+        case '5': 
+           servoX.write(servoX.read() + 40);
+           delay(500);
+           servoX.write(90); 
+           break;         
+        case '6':
+            servoY.write(servoY.read() - 20);
+            delay(500);
+            servoY.write(90); 
+            break;
+        case '8':
+           servoX.write(servoX.read() - 20);
+           delay(500);
+           servoX.write(90); 
+           break;  
+      } 
+    }
+}
+
+void plateMoveKeypad2()  {
+   char key = keypad2.getKey();
+  if (key){ 
+    switch (key)  {
+       case '2':
+           servoX.write(servoX.read() - 20);
+           delay(500);
+           servoX.write(90);
+           break;         
+        case '4':
+            servoY.write(servoY.read() - 20);
+            delay(500);
+            servoY.write(90); 
+            break;
+        case '5': 
+           servoX.write(servoX.read() - 40);
+           delay(500);
+           servoX.write(90);
+           break;         
+        case '6':
+              servoY.write(servoY.read() + 30);
+              delay(500);
+              servoY.write(90); 
+              break;
+        case '8':
+             servoX.write(servoX.read() + 20);
+             delay(500);
+             servoX.write(90);           
+              break;       
+      } 
+    }
+}
+
+int goal(){
+  if(InputX > kale1X){
+    if(InputY > kale1Ya && InputY <kale1Yb){
+       
+      score[0]++;
+      return 1;
+    }
+  }else if(InputX < kale2X){
+    if(InputY > kale2Ya && InputY <kale2Yb){
+      
+      score[1]++;
+      return 2;
+    }
+  }else {
+  
+    return -1;
+  }
 }

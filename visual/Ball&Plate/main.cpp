@@ -43,10 +43,11 @@ osg::Matrix initPosPlate;
 osg::Matrix initPosBall;
 osg::Matrix initPosServo1;
 osg::Matrix initPosServo2;
+bool  setPointActive = true;
 
 float setPointX = 0;
 float setPointY = 0;
-int pureSX =0, pureSY=0;
+int pureSX = 0, pureSY = 0;
 
 float jointAngle1;
 float jointAngle2;
@@ -116,15 +117,18 @@ osg::TessellationHints *hints = new osg::TessellationHints;
 
 int sX = 10;
 int sY = 10;
-bool changing = false;
+bool changeSetP = false;
+bool changeGame1 = false;
+bool changeGame2 = false;
+
 char setPoints[8];
 char servos[6];
 
 extern bool tabPressed(osgWidget::Event &ev);
 
 void changeSetPoint(float x, float y) {
-    changing=true;
-    initPosBall.translate(x, 0, y);
+    changeSetP = true;
+    initPosBall.makeTranslate(x, 0, y);
     setPointX = x;
     setPointY = y;
 
@@ -133,88 +137,121 @@ void changeSetPoint(float x, float y) {
 float setPointsXfromPano(int xP, int yP) {
     if (1000 + (40 * 0.8f) < xP && xP < 1000 + (400 * 0.8f) - (40 * 0.8f)
         && 50 + (30 * 0.8f) < yP && yP < 50 + (300 * 0.8f) - (30 * 0.8f)) {
-        pureSX = (int)((xP - 1000.0) / 0.8f);
+        pureSX = (int) ((xP - 1000.0) / 0.8f);
         return ((xP - 1000.0) / 0.8f) / 20.0 - 10.0f; //((xP - 1000) / 0.8f/20)-10.00;
     } else
         return setPointX;
 }
 
 float setPointsYfromPano(int xP, int yP) {
-
     if (1000 + (40 * 0.8f) < xP && xP < 1000 + (400 * 0.8f) - (40 * 0.8f)
         && 50 + (30 * 0.8f) < yP && yP < 50 + (300 * 0.8f) - (30 * 0.8f)) {
-        pureSY = (int)((yP - 50.0) / 0.8f) ;
-        return ((yP - 50.0) / 0.8f) / 20.0 - 7.5f; //((yP - 50) / 0.8f/20) - 7.50;
-    }else
+        pureSY = (int) ((yP - 50.0) / 0.8f);
+        return (((yP - 50.0) / 0.8f) / 20.0 - 7.5f); //((yP - 50) / 0.8f/20) - 7.50;
+    } else
         return setPointY;
 }
 
-osgWidget::Label *createLabel(const std::string &name,
-                              const std::string &text, float size,
-                              const osg::Vec4 &color) {
+osgWidget::Label* createLabel( const std::string& name,
+                               const std::string& text, float size,
+                               const osg::Vec4& color )
+{
     osg::ref_ptr<osgWidget::Label> label =
             new osgWidget::Label(name);
-    label->setLabel(text);
-    label->setFont("fonts/arial.ttf");
-    label->setFontSize(size);
-    label->setFontColor(1.0f, 1.0f, 1.0f, 1.0f);
-    label->setColor(color);
-    label->addSize(10.0f, 10.0f);
+    label->setLabel( text );
+    label->setFont( "fonts/arial.ttf" );
+    label->setFontSize( size );
+    label->setFontColor( 1.0f, 1.0f, 1.0f, 1.0f );
+    label->setColor( color );
+    label->addSize( 58.0f, 10.0f );
     //label->setCanFill( true );
     return label.release();
 }
 
-osgWidget::Window *createSimpleTabs(float winX, float winY) {
+osgWidget::Window* createSimpleTabs( float winX, float winY )
+{
     osg::ref_ptr<osgWidget::Canvas> contents =
             new osgWidget::Canvas("contents");
     osg::ref_ptr<osgWidget::Box> tabs =
             new osgWidget::Box("tabs", osgWidget::Box::HORIZONTAL);
+
+    string button1 = "Ball&Plate";
+    string button2 = "FootballGame";
     //tabs->setScale(0.8f);
 
-    for (unsigned int i = 0; i < 3; ++i) {
-        osg::Vec4 color(0.0f, (float) i / 3.0f, 0.0f, 1.0f);
-        std::stringstream ss, ss2;
-        ss << "Button" << i;
-        ss2 << "Detected action:" << " Button " << i << " is pressed";
-        osgWidget::Label *content = createLabel(ss.str(),
-                                                ss2.str(), 13.0f, color);
-        content->setLayer(osgWidget::Widget::LAYER_MIDDLE, i);
-        content->setSize(480.0f, 30.0f);
-        contents->addWidget(content, 0.0f, 0.0f);
-        osgWidget::Label *tab = createLabel(ss.str(),
-                                            ss.str(), 10.0f, color);
-        tab->setEventMask(osgWidget::EVENT_MOUSE_PUSH);
-        tab->addCallback(new osgWidget::Callback(
-                &tabPressed, osgWidget::EVENT_MOUSE_PUSH, content));
-        tabs->addWidget(tab);
-    }
+    osg::Vec4 color1(0.0f, (float)0 / 3.0f, 0.0f, 1.0f);
+    std::stringstream ss, ss2;
+    ss << "Button" ;
+    ss2 << "Detected action:" <<" Button " << " is pressed" ;
+    osgWidget::Label* content1 = createLabel(button1,
+                                             ss2.str(), 13.0f, color1);
+    content1->setLayer( osgWidget::Widget::LAYER_LOW, 1 );
+    content1->setSize(378.0f,50.0f);
+    contents->addWidget( content1, 0.0f, 0.0f );
+    osgWidget::Label* tab1 = createLabel(button1,
+                                        button1, 10.0f, color1);
+    tab1->setEventMask( osgWidget::EVENT_MOUSE_PUSH );
+    tab1->addCallback( new osgWidget::Callback(
+            &tabPressed, osgWidget::EVENT_MOUSE_PUSH, content1) );
+    tabs->addWidget( tab1);
+
+    osg::Vec4 color(0.0f, (float)1 / 3.0f, 0.0f, 1.0f);
+
+    osgWidget::Label* content2 = createLabel(button2,
+                                             ss2.str(), 13.0f, color);
+    content2->setLayer( osgWidget::Widget::LAYER_HIGH, 2 );
+    content2->setSize(378.0f,30.0f);
+    contents->addWidget( content2, 0.0f, 0.0f );
+    osgWidget::Label* tab2 = createLabel(button2,
+                                         button2, 10.0f, color);
+    tab2->setEventMask( osgWidget::EVENT_MOUSE_PUSH );
+    tab2->addCallback( new osgWidget::Callback(
+            &tabPressed, osgWidget::EVENT_MOUSE_PUSH, content2) );
+    tabs->addWidget( tab2 );
+
+
     osg::ref_ptr<osgWidget::Box> main =
             new osgWidget::Box("main", osgWidget::Box::VERTICAL);
-    main->setOrigin(winX, winY);
+    main->setOrigin( winX, winY );
     main->attachMoveCallback();
-    main->addWidget(contents->embed());
-    main->addWidget(tabs->embed());
-    main->addWidget(createLabel("title", "This is only an example",
-                                15.0f, osg::Vec4(0.0f, 0.4f, 1.0f, 1.0f)));
+    main->addWidget( contents->embed() );
+    main->addWidget( tabs->embed() );
+    main->addWidget( createLabel("title", "Choose One Mode",
+                                 15.0f, osg::Vec4(0.0f, 0.4f, 1.0f, 1.0f)) );
     main->setScale(0.8);
     return main.release();
 }
 
-bool tabPressed(osgWidget::Event &ev) {
-    osgWidget::Label *content = static_cast<
-            osgWidget::Label *>( ev.getData());
-    if (!content) return false;
-    osgWidget::Canvas *canvas = dynamic_cast<
-            osgWidget::Canvas *>( content->getParent());
-    if (canvas) {
-        osgWidget::Canvas::Vector &objs = canvas->getObjects();
-        for (unsigned int i = 0; i < objs.size(); ++i)
-            objs[i]->setLayer(osgWidget::Widget::LAYER_MIDDLE, i);
-        content->setLayer(osgWidget::Widget::LAYER_TOP, 0);
+bool tabPressed( osgWidget::Event& ev )
+{
+    osgWidget::Label* content = static_cast<
+            osgWidget::Label*>( ev.getData() );
+    if ( !content ) return false;
+    osgWidget::Canvas* canvas = dynamic_cast<
+            osgWidget::Canvas*>( content->getParent() );
+    if ( canvas )
+    {
+        osgWidget::Canvas::Vector& objs = canvas->getObjects();
+        for( unsigned int i=0; i<objs.size(); ++i )
+            objs[i]->setLayer( osgWidget::Widget::LAYER_MIDDLE, i );
+        content->setLayer( osgWidget::Widget::LAYER_TOP, 0 );
         canvas->resize();
     }
+    cout<<content->getName();
+    if(content->getName() == "FootballGame"){
+        setPointActive = false;
+        changeGame1 = true;
+        setPointX = 0;
+        setPointY = 0;
+    }
+    if(content->getName() == "Ball&Plate"){
+        setPointActive = true;
+        changeGame2 = true;
+    }
+
     return true;
 }
+
 
 osg::ref_ptr<osgText::Font> g_font =
         osgText::readFontFile("fonts/arial.ttf");
@@ -274,10 +311,24 @@ public:
         for (int i = 0; i < vertices->size() - 1; i++) {
             vertices->at(i).set(cornerX + i, vertices->at(i + 1).y(), 0);
         }
-        if (axis == 'x')
-            vertices->push_back(osg::Vec3(cornerX + x, cornerY + xVal * (y / 400.0f), 0));
-        else if (axis == 'y')
-            vertices->push_back(osg::Vec3(cornerX + x, cornerY + yVal * (y / 300.0f), 0));
+        if (axis == 'x' ) {
+            //
+            if(xVal * (y / 400.0f) >  y )
+                vertices->push_back(osg::Vec3(cornerX + x, cornerY + y, 0));
+            else if(xVal * (y / 400.0f) < 0 )
+                vertices->push_back(osg::Vec3(cornerX + x, cornerY , 0));
+            //
+            else
+                vertices->push_back(osg::Vec3(cornerX + x, cornerY + xVal * (y / 400.0f), 0));
+        }else if (axis == 'y')
+            //
+            if(xVal * (y / 300.0f) >  y )
+                vertices->push_back(osg::Vec3(cornerX + x, cornerY + y, 0));
+            else if(xVal * (y / 300.0f) < 0 )
+                vertices->push_back(osg::Vec3(cornerX + x, cornerY , 0));
+            //
+            else
+                vertices->push_back(osg::Vec3(cornerX + x, cornerY + yVal * (y / 300.0f), 0));
         //printf("xVal : %f yVal : %f\n", setPointX, setPointY);
 
 
@@ -451,11 +502,11 @@ public:
         osg::Vec3Array *chartCorner = new osg::Vec3Array;
 
         if (axis == 'x') {
-            chartCorner->push_back(osg::Vec3(cornerX, cornerY + setPointX / 4.0f, 0));
-            chartCorner->push_back(osg::Vec3(cornerX + x, cornerY + setPointX / 4.0f, 0));
+            chartCorner->push_back(osg::Vec3(cornerX, (int) (cornerY + setPointX / 4.0f) % 400, 0));
+            chartCorner->push_back(osg::Vec3(cornerX + x, (int) (cornerY + setPointX / 4.0f) % 400, 0));
         } else if (axis == 'y') {
-            chartCorner->push_back(osg::Vec3(cornerX, cornerY + setPointY / 4.0f, 0));
-            chartCorner->push_back(osg::Vec3(cornerX + x, cornerY + setPointY / 4.0f, 0));
+            chartCorner->push_back(osg::Vec3(cornerX, (int) (cornerY + setPointY / 4.0f) % 300, 0));
+            chartCorner->push_back(osg::Vec3(cornerX + x, (int) (cornerY + setPointY / 4.0f) % 300, 0));
         }
 
         geometry->setVertexArray(chartCorner);
@@ -734,14 +785,15 @@ public:
 
         switch (ea.getEventType()) {
             case (osgGA::GUIEventAdapter::PUSH): {
-                _mx = ea.getX();
-                _my = ea.getY();
-                x = setPointsXfromPano(_mx, _my);
-                y = setPointsYfromPano(_mx, _my);
-                if (x != setPointX || y != setPointY)
-                    changeSetPoint(x, y);
-                osg::notify(osg::NOTICE) << "setPointX = " << setPointX << ", " << _mx << std::endl;
-                osg::notify(osg::NOTICE) << "setPointY = " << setPointY << ", " << _my << std::endl;
+                if(setPointActive){
+                    _mx = ea.getX();
+                    _my = ea.getY();
+                    x = setPointsXfromPano(_mx, _my);
+                    y = setPointsYfromPano(_mx, _my);
+                    changeSetPoint(x,y);
+                    osg::notify(osg::NOTICE)<<"setPointX = "<<setPointX<<", "<<_mx<<std::endl;
+                    osg::notify(osg::NOTICE)<<"setPointY = "<<setPointY<<", "<<_my<<std::endl;
+                }
                 return false;
             }
             default:
@@ -771,6 +823,7 @@ void getDatas() {
                     if (x != 666 && y != 666) {
                         xVal = x;
                         yVal = y;
+
                     }
                     //printf((char*)buf);
                     //printf("%f ve %f\n",((float)xVal)/20.0 - 10.00, ((float) yVal)/20.0 - 7.50);
@@ -786,26 +839,38 @@ void getDatas() {
         //}
     }
 }
-
+int a=999,b=999;
+int c=888,d=888;
+char game[8];
 void setDatas() {
-    //RS232_CloseComport(cport_nr);
-    sprintf(setPoints, "%03d,%03dx", pureSX, pureSY);
-    RS232_cputs(cport_nr, setPoints);
-    changing = false;
-    printf("BUTONA BASILDI : SX : %d , SY : %d \n", pureSX, pureSY);
+    if (changeSetP == true) {
+        sprintf(setPoints, "%03d,%03dx", pureSX, pureSY);
+        RS232_cputs(cport_nr, setPoints);
+        changeSetP = false;
+    } else if (changeGame1 == true) {
+        sprintf(game, "%03d,%03dx", a, b);
+        RS232_cputs(cport_nr, game);
+        changeGame1 = false;
+        memset(game,0,8);
+        printf("BUTONA BASILDI : Game Change Football: %s , \n",game);
+    }else if (changeGame2 == true) {
+        sprintf(game, "%03d,%03dx", c, d);
+        RS232_cputs(cport_nr, game);
+        changeGame2 = false;
+        memset(game,0,8);
+        printf("BUTONA BASILDI : Game Change Ball_Plate: %s , \n",game);
+    }
+
 }
 
 DWORD WINAPI thread_func(LPVOID lpParameter) {
     while (1) {
-        if (changing == true) {
-
+        if (changeSetP == true || changeGame1 == true || changeGame2 == true) {
             setDatas();
-
         } else {
             getDatas();
             makeMove((((float) xVal) / 20.0) - 10.00, (((float) yVal) / 20.0) - 7.50);
         }
-
     }
 }
 
@@ -871,9 +936,9 @@ public:
 };
 
 void makeMove(float x, float y) {
-    KeyboardEventHandler::rotateX(-(setPointX - x) * osg::PI / 180, joint1);
-    KeyboardEventHandler::rotateY(-(setPointY - y) * osg::PI / 180, joint1);
-    KeyboardEventHandler::translate((setPointX - x), 0.0, (setPointY - y), joint2);
+    KeyboardEventHandler::rotateX(-(x - setPointX) * osg::PI / 180, joint1);
+    KeyboardEventHandler::rotateY(-(y - setPointY) * osg::PI / 180, joint1);
+    KeyboardEventHandler::translate((x - setPointX), 0.0, (y - setPointY), joint2);
 }
 
 void addTexture(osg::ShapeDrawable *shape, string file) {
