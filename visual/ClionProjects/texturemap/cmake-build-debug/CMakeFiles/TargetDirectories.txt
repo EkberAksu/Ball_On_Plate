@@ -1,0 +1,3 @@
+C:/Users/Akbar Aziz/ClionProjects/texturemap/cmake-build-debug/CMakeFiles/texturemap.dir
+C:/Users/Akbar Aziz/ClionProjects/texturemap/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Akbar Aziz/ClionProjects/texturemap/cmake-build-debug/CMakeFiles/rebuild_cache.dir

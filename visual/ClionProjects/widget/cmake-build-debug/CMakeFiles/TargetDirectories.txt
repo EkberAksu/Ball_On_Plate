@@ -1,0 +1,3 @@
+C:/Users/Akbar Aziz/ClionProjects/widget/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Akbar Aziz/ClionProjects/widget/cmake-build-debug/CMakeFiles/widget.dir
+C:/Users/Akbar Aziz/ClionProjects/widget/cmake-build-debug/CMakeFiles/edit_cache.dir
