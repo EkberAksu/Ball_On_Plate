@@ -1,3 +1,16 @@
 # 395_Project1
 
-Detailed project report can be found on report/Rapor.docx file.
+Projenin son hali FINAL_DEMO klasörü içinde bulunmaktadır. Diğer klasörler geliştirme sürecinde grubun oluşturduğu ve yararlandığı bölümlerdir. 
+
+Projeyi incelemek için gereken bilgiler FINAL_DEMO/Readme.md dosyasında verilmiştir.
+Yönergeleri takip ediniz.
+
+Geliştirciler:
+
+Ali Ozan TAÇALAN
+Emrullah GENÇOĞLU
+Ekber AZİZ
+Serap UÇUŞ
+Hasan BİLGİN
+Şahin EĞİLMEZ
+Oğuz Erdi ERKMEN
