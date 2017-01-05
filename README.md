@@ -5,6 +5,9 @@ Projenin son hali FINAL_DEMO klasörü içinde bulunmaktadır. Diğer klasörler
 Projeyi incelemek için gereken bilgiler FINAL_DEMO/Readme.md dosyasında verilmiştir.
 Yönergeleri takip ediniz.
 
+Aşağıdaki linkte projenin tanıtımı için açılan internet sitesi bulunmaktadır:
+http://ballandplate.wixsite.com/grup1
+
 Geliştirciler:
 
 Ali Ozan TAÇALAN    
