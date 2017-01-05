@@ -7,10 +7,10 @@ Yönergeleri takip ediniz.
 
 Geliştirciler:
 
-Ali Ozan TAÇALAN
-Emrullah GENÇOĞLU
-Ekber AZİZ
-Serap UÇUŞ
-Hasan BİLGİN
-Şahin EĞİLMEZ
+Ali Ozan TAÇALAN    
+Emrullah GENÇOĞLU    
+Ekber AZİZ    
+Serap UÇUŞ     
+Hasan BİLGİN    
+Şahin EĞİLMEZ        
 Oğuz Erdi ERKMEN
